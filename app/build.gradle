@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "edu.ipfw.parkview.indoornavigation"
         minSdkVersion 22
@@ -27,4 +27,15 @@ dependencies {
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
+    implementation 'com.google.android.gms:play-services-maps:11.6.2'
+    implementation 'com.android.support:appcompat-v7:27.0.2'
+}
+
+repositories {
+    google()
+}
+buildscript {
+    repositories {
+        google()
+    }
 }
