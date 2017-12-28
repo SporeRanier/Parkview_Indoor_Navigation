@@ -6,14 +6,4 @@
     android:layout_height="match_parent"
     tools:context="edu.ipfw.parkview.indoornavigation.MapActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="232dp"
-        android:layout_height="29dp"
-        android:layout_marginStart="8dp"
-        android:text="Placeholder Map and Text"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="480dp" />
-
 </android.support.constraint.ConstraintLayout>
