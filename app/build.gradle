@@ -10,6 +10,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        //TODO: replace  following 'ids' with correct when neededbuildConfigField "String", "ANALYTICS_ID", "TRACKING_ID"
     }
     buildTypes {
         release {
@@ -30,10 +32,16 @@ dependencies {
     testCompile 'junit:junit:4.12'
     implementation 'com.google.android.gms:play-services-maps:11.6.2'
     implementation 'com.android.support:appcompat-v7:27.0.2'
+    compile 'com.arubanetworks.meridian:meridian:3.10.0@aar'
+
+
 }
 
 repositories {
     google()
+    flatDir{
+        dirs '../externallib' //relative path to aruba sdk
+    }
 }
 buildscript {
     repositories {
