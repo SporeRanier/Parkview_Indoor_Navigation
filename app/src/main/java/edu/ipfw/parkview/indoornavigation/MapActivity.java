@@ -14,16 +14,24 @@ public class MapActivity extends AppCompatActivity {
 
     //TODO: Put these strings in values/strings.xml
     public static final EditorKey APP_KEY = EditorKey.forApp("need a number here");
-    public static final EditorKey MAP_KEY = EditorKey.forMap("need another number",APP_KEY);
+    public static final EditorKey MAP_KEY = EditorKey.forMap("need another number", APP_KEY);
+
     public static final String EDITOR_TOKEN = "Not a real token yet";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-
+        EditorKey test = new EditorKey("ASD");
         Meridian.configure(this);
         Meridian.getShared().initGoalsForLocation(APP_KEY.toString());
         Meridian.getShared().setEditorToken(EDITOR_TOKEN);
         EditorKey key = new EditorKey("needkey");
+<<<<<<< HEAD
+=======
+        MapFragment m = MapFragment.newInstance(test, null);
+
+>>>>>>> 52460bd056445f78a233481c51a8c4ce00026b47
     }
+
+
 }
