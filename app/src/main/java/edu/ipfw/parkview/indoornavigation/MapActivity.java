@@ -25,7 +25,7 @@ public class MapActivity extends AppCompatActivity {
         Meridian.getShared().initGoalsForLocation(APP_KEY.toString());
         Meridian.getShared().setEditorToken(EDITOR_TOKEN);
         EditorKey key = new EditorKey("needkey");
-        MapFragment m = MapFragment.newInstance(test, null);
+
 
     }
 
