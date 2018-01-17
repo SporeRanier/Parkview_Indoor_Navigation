@@ -8,6 +8,6 @@ public class UpcomingEvents extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_upcoming_events);
+        setContentView(R.layout.activity_main_menu);
     }
 }
