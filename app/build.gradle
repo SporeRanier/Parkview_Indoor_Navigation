@@ -49,7 +49,7 @@ dependencies {
 repositories {
     google()
     flatDir {
-        dirs '../externallib' //relative path to aruba sdk
+        dirs '../lib' //relative path to aruba sdk
     }
 }
 buildscript {
