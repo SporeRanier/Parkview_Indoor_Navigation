@@ -6,55 +6,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/DirectoryBtn"
-        android:layout_width="65dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:text="Directory"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    <!--Tags Descriptions:
+        nts_active_color: color of selected item
+        nts_color: color of the little bar underneath a selected item
+        mts_inactive_color:
+        nts_size: size of the text
+    -->
 
-    <Button
-        android:id="@+id/WaitBtn"
-        android:layout_width="65dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:text="Wait Time"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/DirectoryBtn" />
+    <com.gigamole.navigationtabstrip.NavigationTabStrip
+        android:id="@+id/nts_top"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
 
-    <Button
-        android:id="@+id/DirectionsBtn"
-        android:layout_width="65dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:text="Directions"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="center"
+        android:background="#00793A"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/WaitBtn" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:nts_active_color="#fff"
+        app:nts_color="#fff"
+        app:nts_corners_radius="2dp"
+        app:nts_inactive_color="#000"
+        app:nts_size="10sp"
+        app:nts_titles="@array/BottomNavTitles"
+        app:nts_weight="3dp" />
 
-    <Button
-        android:id="@+id/ContactBtn"
-        android:layout_width="65dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="12dp"
-        android:text="Contact"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/DirectionsBtn" />
-
-    <Button
-        android:id="@+id/HelpBtn"
-        android:layout_width="65dp"
-        android:layout_height="55dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="Help"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ContactBtn" />
 </android.support.constraint.ConstraintLayout>
