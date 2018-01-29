@@ -30,8 +30,8 @@
 
             <ImageButton
                 android:id="@+id/MainMenuDirectoryBtn"
-                android:layout_width="181dp"
-                android:layout_height="170.3dp"
+                android:layout_width="180dp"
+                android:layout_height="186dp"
                 android:background="@android:color/holo_blue_bright"
                 android:contentDescription="all doctors info"
 
@@ -42,8 +42,8 @@
 
             <ImageButton
                 android:id="@+id/MainMenuDirectionsBtn"
-                android:layout_width="181dp"
-                android:layout_height="170.3dp"
+                android:layout_width="180dp"
+                android:layout_height="186dp"
                 android:background="@android:color/holo_blue_bright"
                 android:contentDescription="maping button"
                 android:onClick="onButtonClick"
@@ -51,12 +51,12 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/MainMenuDirectoryBtn"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/direction" />
+                app:srcCompat="@drawable/directions" />
 
             <ImageButton
                 android:id="@+id/MainMenuUpcomingBtn"
-                android:layout_width="181dp"
-                android:layout_height="170.3dp"
+                android:layout_width="180dp"
+                android:layout_height="186dp"
                 android:background="@android:color/holo_orange_dark"
                 app:layout_constraintBottom_toTopOf="@+id/MainMenuFindUsBtn"
                 app:layout_constraintEnd_toStartOf="@+id/MainMenuWaitTimeBtn"
@@ -65,8 +65,8 @@
 
             <ImageButton
                 android:id="@+id/MainMenuWaitTimeBtn"
-                android:layout_width="181dp"
-                android:layout_height="170.3dp"
+                android:layout_width="180dp"
+                android:layout_height="186dp"
                 android:background="@android:color/holo_purple"
                 app:layout_constraintBottom_toTopOf="@+id/MainMenuFindUsBtn"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -76,8 +76,8 @@
 
             <ImageButton
                 android:id="@+id/MainMenuFindUsBtn"
-                android:layout_width="179dp"
-                android:layout_height="170.3dp"
+                android:layout_width="180dp"
+                android:layout_height="186dp"
                 android:adjustViewBounds="false"
                 android:background="@android:color/holo_orange_light"
                 android:contentDescription="find us with google map"
@@ -87,8 +87,8 @@
 
             <ImageButton
                 android:id="@+id/MainMenuContactUsBtn"
-                android:layout_width="181dp"
-                android:layout_height="170.3dp"
+                android:layout_width="180dp"
+                android:layout_height="186dp"
                 android:background="@android:color/holo_red_light"
                 app:layout_constraintEnd_toStartOf="@+id/MainMenuFindUsBtn"
                 app:layout_constraintTop_toBottomOf="@+id/MainMenuUpcomingBtn"
