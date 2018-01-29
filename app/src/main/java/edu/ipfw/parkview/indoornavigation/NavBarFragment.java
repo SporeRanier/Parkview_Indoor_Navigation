@@ -50,8 +50,8 @@ public class NavBarFragment extends Fragment {
     private class NavListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(getActivity(), RouteActivity.class);
-            startActivity(intent);
+            //Intent intent = new Intent(getActivity(), RouteActivity.class);
+            //startActivity(intent);
         }
     }
 }
