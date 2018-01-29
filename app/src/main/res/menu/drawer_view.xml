@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/drawer_main_menu"
+            android:title="Main Menu"
+            android:checked="true"/>
+        <item
+            android:id="@+id/drawer_map"
+            android:title="Map" />
+        <item
+            android:id="@+id/drawer_upcoming_events"
+            android:title="Upcoming Events" />
+
+    </group>
+
+</menu>

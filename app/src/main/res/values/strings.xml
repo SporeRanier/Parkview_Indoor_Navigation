@@ -6,4 +6,6 @@
     <string name="title_activity_main">this is the main activity!</string>
     <string name="application_key"></string>
     <string name="ipfw_etcs_map_key"></string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
 </resources>
