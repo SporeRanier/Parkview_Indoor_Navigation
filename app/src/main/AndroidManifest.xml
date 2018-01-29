@@ -31,7 +31,6 @@
 
         <activity android:name=".MainActivity" />
         <activity android:name=".MapActivity" />
-        <activity android:name=".UpcomingEvents" />
     </application>
 
 </manifest>
