@@ -18,6 +18,7 @@ import com.arubanetworks.meridian.location.LocationRequest;
 import com.arubanetworks.meridian.location.MeridianLocation;
 import com.arubanetworks.meridian.location.MeridianOrientation;
 import com.arubanetworks.meridian.maps.MapFragment;
+import com.arubanetworks.meridian.maps.MapInfo;
 import com.arubanetworks.meridian.maps.MapOptions;
 import com.arubanetworks.meridian.maps.MapView;
 
@@ -42,20 +43,15 @@ public class MapActivity extends AppCompatActivity {
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
         setupDrawerContent(nvDrawer);
 
-        Log.d("in", "in");
         buildMapFragment();
-        Log.d("out", "out");
-
-
     }
 
     private void buildMapFragment() {
         MapFragment.Builder mapBuilder = new MapFragment.Builder()
-                .setMapKey(Application.MAP_KEY);
-        MapOptions mapOptions = MapOptions.getDefaultOptions();
-        //mapOptions.HIDE_OVERVIEW_BUTTON = true;
-        mapBuilder.setMapOptions(mapOptions);
+                .setMapKey(Application.MAP_KEY)
+                .setMapOptions(configureMapOptions());
         final MapFragment mapFragment = mapBuilder.build();
+        //mapFragment.getMapView().setShowsUserLocation(true);
         mapFragment.setMapEventListener(new MapView.MapEventListener() {
             @Override
             public void onMapLoadStart() {
@@ -99,12 +95,10 @@ public class MapActivity extends AppCompatActivity {
 
             @Override
             public boolean onLocationButtonClick() {
-                // example of how to override the behavior of the location button
                 final MapView mapView = mapFragment.getMapView();
                 MeridianLocation location = mapView.getUserLocation();
                 if (location != null) {
                     mapView.updateForLocation(location);
-
                 } else {
                     LocationRequest.requestCurrentLocation(getApplicationContext(), Application.APP_KEY, new LocationRequest.LocationRequestListener() {
                         @Override
@@ -127,6 +121,13 @@ public class MapActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.container, fragment)
                 .commit();
+    }
+
+    private MapOptions configureMapOptions() {
+        MapOptions options = MapOptions.getDefaultOptions();
+        options.HIDE_LEVELS_CONTROL = true;
+        options.HIDE_OVERVIEW_BUTTON = true;
+        return options;
     }
 
 

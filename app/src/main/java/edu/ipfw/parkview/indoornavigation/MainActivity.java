@@ -2,7 +2,6 @@ package edu.ipfw.parkview.indoornavigation;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -122,9 +121,14 @@ public class MainActivity extends AppCompatActivity  {
         mDrawer.closeDrawers();
     }
 
-    public void onButtonClick(View v) {
+    public void onDirectionsButtonClick(View v) {
         Intent startMapActivity = new Intent(this, MapActivity.class);
         startActivity(startMapActivity);
+    }
+
+    public void onWaitTimeButtonClick(View v) {
+        Intent startWaitTimeActivity = new Intent(this, WaitTimeActivity.class);
+        startActivity(startWaitTimeActivity);
     }
 
 }
