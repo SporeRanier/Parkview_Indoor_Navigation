@@ -11,14 +11,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.arubanetworks.meridian.location.LocationRequest;
 import com.arubanetworks.meridian.location.MeridianLocation;
 import com.arubanetworks.meridian.location.MeridianOrientation;
 import com.arubanetworks.meridian.maps.MapFragment;
-import com.arubanetworks.meridian.maps.MapInfo;
 import com.arubanetworks.meridian.maps.MapOptions;
 import com.arubanetworks.meridian.maps.MapView;
 
@@ -155,13 +153,13 @@ public class MapActivity extends AppCompatActivity {
                 break;
 
             case R.id.drawer_upcoming_events:
-                fragmentClass = UpcomingEvents.class;
+                fragmentClass = UpcomingEventsFragment.class;
                 break;
             case R.id.drawer_wait_time:
                 fragmentClass = WaitTimeFragment.class;
                 break;
             default:
-                fragmentClass = UpcomingEvents.class;
+                fragmentClass = UpcomingEventsFragment.class;
                 break;
         }
 

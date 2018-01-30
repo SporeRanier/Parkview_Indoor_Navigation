@@ -58,10 +58,12 @@
                 android:layout_width="180dp"
                 android:layout_height="187dp"
                 android:background="@android:color/holo_orange_dark"
+                android:onClick="onEventsButtonClick"
                 app:layout_constraintBottom_toTopOf="@+id/MainMenuFindUsBtn"
                 app:layout_constraintEnd_toStartOf="@+id/MainMenuWaitTimeBtn"
                 app:layout_constraintTop_toBottomOf="@+id/MainMenuDirectoryBtn"
-                app:srcCompat="@drawable/upcoming_events" />
+                app:srcCompat="@drawable/upcoming_events"
+                />
 
             <ImageButton
                 android:id="@+id/MainMenuWaitTimeBtn"
