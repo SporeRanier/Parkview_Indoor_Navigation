@@ -101,13 +101,13 @@ public class MainActivity extends AppCompatActivity  {
                 break;
 
             case R.id.drawer_upcoming_events:
-                fragmentClass = UpcomingEvents.class;
+                fragmentClass = UpcomingEventsFragment.class;
                 break;
             case R.id.drawer_wait_time:
                 fragmentClass = WaitTimeFragment.class;
                 break;
             default:
-                fragmentClass = UpcomingEvents.class;
+                fragmentClass = UpcomingEventsFragment.class;
                 break;
         }
 
@@ -132,6 +132,19 @@ public class MainActivity extends AppCompatActivity  {
     public void onDirectionsButtonClick(View v) {
         Intent startMapActivity = new Intent(this, MapActivity.class);
         startActivity(startMapActivity);
+    }
+
+    public void onEventsButtonClick(View v){
+        try{
+            fragmentClass = UpcomingEventsFragment.class;
+            fragment = (Fragment) fragmentClass.newInstance();
+            fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
+            menuItem = (MenuItem)findViewById(R.id.drawer_upcoming_events);
+            menuItem.setChecked(true);
+
+        } catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void onWaitTimeButtonClick(View v) {

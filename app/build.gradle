@@ -43,6 +43,7 @@ dependencies {
     // third party meridian dependencies
     compile 'com.mcxiaoke.volley:library:1.0.9@aar'
     compile 'com.squareup:otto:1.3.5'
+    compile 'com.squareup.picasso:picasso:2.5.2'
     // meridian integrated analytics
     //compile 'com.google.android.gms:play-services-analytics:10.2.4'
 }
