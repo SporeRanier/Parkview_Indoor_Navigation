@@ -157,6 +157,9 @@ public class MapActivity extends AppCompatActivity {
             case R.id.drawer_upcoming_events:
                 fragmentClass = UpcomingEvents.class;
                 break;
+            case R.id.drawer_wait_time:
+                fragmentClass = WaitTimeFragment.class;
+                break;
             default:
                 fragmentClass = UpcomingEvents.class;
                 break;

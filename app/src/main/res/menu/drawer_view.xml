@@ -12,6 +12,9 @@
             android:id="@+id/drawer_upcoming_events"
             android:title="Upcoming Events" />
 
+        <item
+            android:id="@+id/drawer_wait_time"
+            android:title="ER Wait Time" />
     </group>
 
 </menu>

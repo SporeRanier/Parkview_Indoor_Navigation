@@ -19,6 +19,10 @@ public class MainActivity extends AppCompatActivity  {
     private Toolbar toolbar;
     private NavigationView nvDrawer;
     private ActionBarDrawerToggle drawerToggle; //must use v7.app
+    private FragmentManager fragmentManager;
+    private Class fragmentClass;
+    private Fragment fragment;
+    private MenuItem menuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,9 @@ public class MainActivity extends AppCompatActivity  {
         drawerToggle = setupDrawerToggle();
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
         setupDrawerContent(nvDrawer);
+        fragmentManager = getSupportFragmentManager();
+        fragment = null;
+        fragmentClass = null;
     }
 
     @Override
@@ -76,8 +83,6 @@ public class MainActivity extends AppCompatActivity  {
 
     public void selectDrawerItem(MenuItem menuItem) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
-        Fragment fragment = null; //must be Fragment.v4
-        Class fragmentClass = null;
         Boolean needFrag = true;
         Intent intent;
         switch(menuItem.getItemId()) {
@@ -98,6 +103,9 @@ public class MainActivity extends AppCompatActivity  {
             case R.id.drawer_upcoming_events:
                 fragmentClass = UpcomingEvents.class;
                 break;
+            case R.id.drawer_wait_time:
+                fragmentClass = WaitTimeFragment.class;
+                break;
             default:
                 fragmentClass = UpcomingEvents.class;
                 break;
@@ -106,12 +114,12 @@ public class MainActivity extends AppCompatActivity  {
         if(needFrag) {
             try {
                 fragment = (Fragment) fragmentClass.newInstance();
+                fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            // Insert the fragment by replacing any existing fragment
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
+
         }
         // Highlight the selected item has been done by NavigationView
         menuItem.setChecked(true);
@@ -127,8 +135,16 @@ public class MainActivity extends AppCompatActivity  {
     }
 
     public void onWaitTimeButtonClick(View v) {
-        Intent startWaitTimeActivity = new Intent(this, WaitTimeActivity.class);
-        startActivity(startWaitTimeActivity);
+        try{
+            fragmentClass = WaitTimeFragment.class;
+            fragment = (Fragment) fragmentClass.newInstance();
+            fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
+            menuItem = (MenuItem)findViewById(R.id.drawer_wait_time);
+            menuItem.setChecked(true);
+
+        } catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
 }

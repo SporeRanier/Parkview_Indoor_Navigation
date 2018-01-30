@@ -33,7 +33,7 @@
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".MapActivity" />
-        <activity android:name=".WaitTimeActivity"></activity>
+        <activity android:name=".WaitTimeFragment"></activity>
     </application>
 
 </manifest>
