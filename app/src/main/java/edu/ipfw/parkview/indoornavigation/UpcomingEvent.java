@@ -54,7 +54,7 @@ public class UpcomingEvent {
                 ue.description = recipes.getJSONObject(i).getString("description");
                 ue.imageUrl = recipes.getJSONObject(i).getString("image");
                 ue.instructionUrl = recipes.getJSONObject(i).getString("url");
-                ue.label = recipes.getJSONObject(i).getString("dietLabel");
+
 
                 eventList.add(ue);
             }

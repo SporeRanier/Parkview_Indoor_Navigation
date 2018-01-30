@@ -46,10 +46,10 @@ public class EventsAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get view for row item
-        View rowView = mInflater.inflate(R.layout.list_item_recipe, parent, false);
+        View rowView = mInflater.inflate(R.layout.list_events, parent, false);
         // Get title element
         TextView titleTextView =
-                (TextView) rowView.findViewById(edu.ipfw.parkview.indoornavigation.R.id.recipe_list_title);
+                (TextView) rowView.findViewById(edu.ipfw.parkview.indoornavigation.R.id.event_list_title);
 
 // Get subtitle element
         TextView subtitleTextView =
@@ -57,11 +57,11 @@ public class EventsAdapter extends BaseAdapter{
 
 // Get detail element
         TextView detailTextView =
-                (TextView) rowView.findViewById(edu.ipfw.parkview.indoornavigation.R.id.recipe_list_detail);
+                (TextView) rowView.findViewById(edu.ipfw.parkview.indoornavigation.R.id.event_list_detail);
 
 // Get thumbnail element
         ImageView thumbnailImageView =
-                (ImageView) rowView.findViewById(edu.ipfw.parkview.indoornavigation.R.id.recipe_list_thumbnail);
+                (ImageView) rowView.findViewById(edu.ipfw.parkview.indoornavigation.R.id.event_list_thumbnail);
 
         // 1
         UpcomingEvent ue = (UpcomingEvent) getItem(position);

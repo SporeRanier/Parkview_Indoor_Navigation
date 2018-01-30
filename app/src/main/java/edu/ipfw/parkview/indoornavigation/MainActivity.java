@@ -141,6 +141,7 @@ public class MainActivity extends AppCompatActivity  {
             fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
             menuItem = (MenuItem)findViewById(R.id.drawer_upcoming_events);
             menuItem.setChecked(true);
+            setTitle(menuItem.getTitle());
 
         } catch(Exception e){
             e.printStackTrace();
@@ -154,6 +155,7 @@ public class MainActivity extends AppCompatActivity  {
             fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
             menuItem = (MenuItem)findViewById(R.id.drawer_wait_time);
             menuItem.setChecked(true);
+            setTitle(menuItem.getTitle());
 
         } catch(Exception e){
             e.printStackTrace();
