@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity  {
     private Class fragmentClass;
     private Fragment fragment;
     private MenuItem menuItem;
+    private MapModel mapModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,8 @@ public class MainActivity extends AppCompatActivity  {
         fragmentManager = getSupportFragmentManager();
         fragment = null;
         fragmentClass = null;
+
+        mapModel = new MapModel(getApplicationContext());
     }
 
     @Override
@@ -84,6 +87,7 @@ public class MainActivity extends AppCompatActivity  {
     public void selectDrawerItem(MenuItem menuItem) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Boolean needFrag = true;
+        Boolean needMap = false;
         Intent intent;
         switch(menuItem.getItemId()) {
 
@@ -94,10 +98,8 @@ public class MainActivity extends AppCompatActivity  {
                 startActivity(intent);
                 break;
             case R.id.drawer_map:
+                fragmentManager.beginTransaction().replace(R.id.clMainMenu, mapModel.getMapFragment()).commit();
                 needFrag = false;
-                intent = new Intent(MainActivity.this, MapActivity.class);
-                this.finishActivity(0);
-                startActivity(intent);
                 break;
 
             case R.id.drawer_upcoming_events:
@@ -114,6 +116,7 @@ public class MainActivity extends AppCompatActivity  {
         if(needFrag) {
             try {
                 fragment = (Fragment) fragmentClass.newInstance();
+
                 fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
 
             } catch (Exception e) {
@@ -130,8 +133,7 @@ public class MainActivity extends AppCompatActivity  {
     }
 
     public void onDirectionsButtonClick(View v) {
-        Intent startMapActivity = new Intent(this, MapActivity.class);
-        startActivity(startMapActivity);
+        fragmentManager.beginTransaction().replace(R.id.clMainMenu, mapModel.getMapFragment()).commit();
     }
 
     public void onEventsButtonClick(View v){
