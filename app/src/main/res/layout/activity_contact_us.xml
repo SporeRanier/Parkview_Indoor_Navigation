@@ -112,7 +112,7 @@
         android:layout_gravity="center_horizontal"
         android:background="@color/colorButtonGreen"
         android:elevation="4dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="30dp"
         android:paddingLeft="70dp"
         android:paddingRight="70dp"
         android:text="Send Message"
