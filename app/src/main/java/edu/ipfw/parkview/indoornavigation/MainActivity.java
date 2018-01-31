@@ -103,6 +103,9 @@ public class MainActivity extends AppCompatActivity  {
             case R.id.drawer_upcoming_events:
                 fragmentClass = UpcomingEvents.class;
                 break;
+            case R.id.drawer_contact_us:
+                fragmentClass = ContactUsActivity.class;
+                break;
             case R.id.drawer_wait_time:
                 fragmentClass = WaitTimeFragment.class;
                 break;
@@ -146,5 +149,17 @@ public class MainActivity extends AppCompatActivity  {
             e.printStackTrace();
         }
     }
+    public void onContactUsClick(View v) {
+        try{
 
+            fragmentClass = ContactUsActivity.class;
+            fragment = (Fragment) fragmentClass.newInstance();
+            fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
+            menuItem = (MenuItem)findViewById(R.id.drawer_contact_us);
+            menuItem.setChecked(true);
+
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 }
