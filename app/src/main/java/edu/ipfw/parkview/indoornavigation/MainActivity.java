@@ -1,7 +1,9 @@
 package edu.ipfw.parkview.indoornavigation;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -10,11 +12,17 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.arubanetworks.meridian.editor.Placemark;
 import com.arubanetworks.meridian.location.MeridianLocation;
+import com.arubanetworks.meridian.location.MeridianLocationManager;
+import com.arubanetworks.meridian.location.MeridianOrientation;
+import com.arubanetworks.meridian.maps.MapFragment;
+import com.arubanetworks.meridian.maps.MapOptions;
+import com.arubanetworks.meridian.maps.MapView;
 import com.arubanetworks.meridian.maps.directions.Directions;
 import com.arubanetworks.meridian.maps.directions.DirectionsDestination;
 import com.arubanetworks.meridian.maps.directions.DirectionsResponse;
@@ -22,7 +30,7 @@ import com.arubanetworks.meridian.maps.directions.DirectionsSource;
 import com.arubanetworks.meridian.maps.directions.TransportType;
 
 
-public class MainActivity extends AppCompatActivity implements Directions.DirectionsRequestListener  {
+public class MainActivity extends AppCompatActivity   {
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private NavigationView nvDrawer;
@@ -31,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements Directions.Direct
     private Class fragmentClass;
     private Fragment fragment;
     private MenuItem menuItem;
-    private MapModel mapModel;
+    private MapFragment mapFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +58,8 @@ public class MainActivity extends AppCompatActivity implements Directions.Direct
         fragmentManager = getSupportFragmentManager();
         fragment = null;
         fragmentClass = null;
+        buildMapFragment();
 
-        mapModel = new MapModel(getApplicationContext());
     }
 
     @Override
@@ -106,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements Directions.Direct
                 startActivity(intent);
                 break;
             case R.id.drawer_map:
-                fragmentManager.beginTransaction().replace(R.id.clMainMenu, mapModel.getMapFragment()).commit();
+                fragmentManager.beginTransaction().replace(R.id.clMainMenu, mapFragment).commit();
                 needFrag = false;
                 break;
 
@@ -144,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements Directions.Direct
     }
 
     public void onDirectionsButtonClick(View v) {
-        fragmentManager.beginTransaction().replace(R.id.clMainMenu, mapModel.getMapFragment()).commit();
+        fragmentManager.beginTransaction().replace(R.id.clMainMenu, mapFragment).commit();
     }
 
     public void onEventsButtonClick(View v){
@@ -188,34 +196,118 @@ public class MainActivity extends AppCompatActivity implements Directions.Direct
         }
     }
 
-    private void getDirections(MeridianLocation source, Placemark destination) {
-        Directions.Builder directionsBuilder = new Directions.Builder()
-                .setAppKey(Application.APP_KEY)
-                .setSource(DirectionsSource.forMapPoint(source.getMap(), source.getPoint()))
-                .setDestination(DirectionsDestination.forPlacemarkKey(destination.getKey()))
-                .setTransportType(TransportType.WALKING)
-                .setListener(this);
 
-        Directions directions = directionsBuilder.build();
-        directions.calculate();
+    private void buildMapFragment() {
+        MapFragment.Builder mapBuilder = new MapFragment.Builder()
+                .setMapKey(Application.MAP_KEY)
+                .setMapOptions(configureMapOptions());
+        mapFragment = mapBuilder.build();
+        //mapFragment.getMapView().setShowsUserLocation(true);
+        //locationManager.startListeningForLocation();
+        //renewMapFragment(context);
+
+        mapFragment.setMapEventListener(new MapView.MapEventListener() {
+            @Override
+            public void onMapLoadStart() {
+
+            }
+
+            @Override
+            public void onMapLoadFinish() {
+                mapFragment.getMapView().setShowsUserLocation(true);
+            }
+
+            @Override
+            public void onPlacemarksLoadFinish() {
+
+            }
+
+            @Override
+            public void onMapRenderFinish() {
+
+            }
+
+            @Override
+            public void onMapLoadFail(Throwable throwable) {
+
+            }
+
+            @Override
+            public void onMapTransformChange(Matrix matrix) {
+
+            }
+
+            @Override
+            public void onLocationUpdated(MeridianLocation meridianLocation) {
+
+            }
+
+            @Override
+            public void onOrientationUpdated(MeridianOrientation meridianOrientation) {
+
+            }
+
+            @Override
+            public boolean onLocationButtonClick() {
+                Log.d("t","t");
+                /*
+                final MapView mapView = mapFragment.getMapView();
+                MeridianLocation location = mapView.getUserLocation();
+                if (location != null) {
+                    Log.d("HEYLLADJSDADLAD", "READINGUSERLOCATION");
+                    mapView.updateForLocation(location);
+                } else {
+                    LocationRequest.requestCurrentLocation(mapView.getContext(), Application.APP_KEY, new LocationRequest.LocationRequestListener() {
+                        @Override
+                        public void onResult(MeridianLocation location) {
+                            mapView.updateForLocation(location);
+                        }
+
+                        @Override
+                        public void onError(LocationRequest.ErrorType location) {
+                            // handle the error
+                        }
+                    });
+                }*/
+                return true;
+            }
+        });
+
     }
-    @Override
-    public void onDirectionsRequestStart() {
 
+    private MapOptions configureMapOptions() {
+        MapOptions options = MapOptions.getDefaultOptions();
+        options.HIDE_LEVELS_CONTROL = true;
+        options.HIDE_OVERVIEW_BUTTON = true;
+        return options;
     }
 
-    @Override
-    public void onDirectionsRequestComplete(DirectionsResponse directionsResponse) {
+    private final MeridianLocationManager.LocationUpdateListener listener = new MeridianLocationManager.LocationUpdateListener() {
+        @Override
+        public void onLocationUpdate(MeridianLocation location) {
+            Log.d("t","t");
+        }
 
-    }
+        @Override
+        public void onLocationError(Throwable tr) {
+            Log.d("t","t");
+        }
 
-    @Override
-    public void onDirectionsRequestError(Throwable throwable) {
+        @Override
+        public void onEnableBluetoothRequest() {
 
-    }
+        }
 
-    @Override
-    public void onDirectionsRequestCanceled() {
+        @Override
+        public void onEnableWiFiRequest() {
+        }
 
-    }
+        @Override
+        public void onEnableGPSRequest() {
+
+        }
+    };
+
+
+
 }
