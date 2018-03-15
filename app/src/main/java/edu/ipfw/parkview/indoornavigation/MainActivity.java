@@ -13,8 +13,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.arubanetworks.meridian.editor.Placemark;
+import com.arubanetworks.meridian.location.MeridianLocation;
+import com.arubanetworks.meridian.maps.directions.Directions;
+import com.arubanetworks.meridian.maps.directions.DirectionsDestination;
+import com.arubanetworks.meridian.maps.directions.DirectionsResponse;
+import com.arubanetworks.meridian.maps.directions.DirectionsSource;
+import com.arubanetworks.meridian.maps.directions.TransportType;
 
-public class MainActivity extends AppCompatActivity  {
+
+public class MainActivity extends AppCompatActivity implements Directions.DirectionsRequestListener  {
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private NavigationView nvDrawer;
@@ -178,5 +186,36 @@ public class MainActivity extends AppCompatActivity  {
         } catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    private void getDirections(MeridianLocation source, Placemark destination) {
+        Directions.Builder directionsBuilder = new Directions.Builder()
+                .setAppKey(Application.APP_KEY)
+                .setSource(DirectionsSource.forMapPoint(source.getMap(), source.getPoint()))
+                .setDestination(DirectionsDestination.forPlacemarkKey(destination.getKey()))
+                .setTransportType(TransportType.WALKING)
+                .setListener(this);
+
+        Directions directions = directionsBuilder.build();
+        directions.calculate();
+    }
+    @Override
+    public void onDirectionsRequestStart() {
+
+    }
+
+    @Override
+    public void onDirectionsRequestComplete(DirectionsResponse directionsResponse) {
+
+    }
+
+    @Override
+    public void onDirectionsRequestError(Throwable throwable) {
+
+    }
+
+    @Override
+    public void onDirectionsRequestCanceled() {
+
     }
 }

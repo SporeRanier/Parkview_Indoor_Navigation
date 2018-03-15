@@ -2,7 +2,9 @@ package edu.ipfw.parkview.indoornavigation;
 
 import android.content.Context;
 import android.graphics.Matrix;
+import android.util.Log;
 
+import com.arubanetworks.meridian.location.MeridianLocationManager;
 import com.arubanetworks.meridian.maps.MapFragment;
 import com.arubanetworks.meridian.location.LocationRequest;
 import com.arubanetworks.meridian.location.MeridianLocation;
@@ -16,6 +18,33 @@ import com.arubanetworks.meridian.maps.MapView;
 
 public class MapModel {
     private MapFragment mapFragment;
+    private MeridianLocationManager locationManager;
+    private boolean isListening;
+    private final MeridianLocationManager.LocationUpdateListener listener = new MeridianLocationManager.LocationUpdateListener() {
+        @Override
+        public void onLocationUpdate(MeridianLocation location) {
+            Log.d("t","t");
+        }
+
+        @Override
+        public void onLocationError(Throwable tr) {
+            Log.d("t","t");
+        }
+
+        @Override
+        public void onEnableBluetoothRequest() {
+
+        }
+
+        @Override
+        public void onEnableWiFiRequest() {
+        }
+
+        @Override
+        public void onEnableGPSRequest() {
+
+        }
+    };
 
     public MapModel(Context context) {
         buildMapFragment(context);
@@ -26,6 +55,7 @@ public class MapModel {
     }
 
     public void renewMapFragment(final Context context){
+
         mapFragment.setMapEventListener(new MapView.MapEventListener() {
             @Override
             public void onMapLoadStart() {
@@ -34,7 +64,8 @@ public class MapModel {
 
             @Override
             public void onMapLoadFinish() {
-
+                mapFragment.getMapView().setShowsUserLocation(true);
+                setListening(true);
             }
 
             @Override
@@ -69,12 +100,15 @@ public class MapModel {
 
             @Override
             public boolean onLocationButtonClick() {
+                Log.d("t","t");
+                /*
                 final MapView mapView = mapFragment.getMapView();
                 MeridianLocation location = mapView.getUserLocation();
                 if (location != null) {
+                    Log.d("HEYLLADJSDADLAD", "READINGUSERLOCATION");
                     mapView.updateForLocation(location);
                 } else {
-                    LocationRequest.requestCurrentLocation(context, Application.APP_KEY, new LocationRequest.LocationRequestListener() {
+                    LocationRequest.requestCurrentLocation(mapView.getContext(), Application.APP_KEY, new LocationRequest.LocationRequestListener() {
                         @Override
                         public void onResult(MeridianLocation location) {
                             mapView.updateForLocation(location);
@@ -85,7 +119,7 @@ public class MapModel {
                             // handle the error
                         }
                     });
-                }
+                }*/
                 return true;
             }
         });
@@ -98,11 +132,26 @@ public class MapModel {
                 .setMapOptions(configureMapOptions());
         mapFragment = mapBuilder.build();
         //mapFragment.getMapView().setShowsUserLocation(true);
-
-        renewMapFragment(context);
+        locationManager = new MeridianLocationManager(context, Application.APP_KEY, listener);
+        isListening = false;
+        //locationManager.startListeningForLocation();
+        //renewMapFragment(context);
 
     }
 
+    private boolean isListening(){
+        return isListening;
+    }
+
+    private void setListening(boolean listen) {
+        isListening = listen;
+        if(listen){
+            locationManager.startListeningForLocation();
+        }
+        else{
+            locationManager.stopListeningForLocation();
+        }
+    }
     private MapOptions configureMapOptions() {
         MapOptions options = MapOptions.getDefaultOptions();
         options.HIDE_LEVELS_CONTROL = true;
