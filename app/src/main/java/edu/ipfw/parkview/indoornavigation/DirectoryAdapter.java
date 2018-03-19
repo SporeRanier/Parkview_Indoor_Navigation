@@ -13,12 +13,12 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 //see: https://www.raywenderlich.com/124438/android-listview-tutorial
-public class EventsAdapter extends BaseAdapter{
+public class DirectoryAdapter extends BaseAdapter{
     private Context mContext;
     private LayoutInflater mInflater;
-    private ArrayList<UpcomingEvent> mDataSource;
+    private ArrayList<Directory> mDataSource;
 
-    public EventsAdapter(Context context, ArrayList<UpcomingEvent> items) {
+    public DirectoryAdapter(Context context, ArrayList<Directory> items) {
         mContext = context;
         mDataSource = items;
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -64,7 +64,7 @@ public class EventsAdapter extends BaseAdapter{
                 (ImageView) rowView.findViewById(edu.ipfw.parkview.indoornavigation.R.id.event_list_thumbnail);
 
         // 1
-        UpcomingEvent ue = (UpcomingEvent) getItem(position);
+        Directory ue = (Directory) getItem(position);
 
 // 2
         titleTextView.setText(ue.title);
@@ -73,7 +73,7 @@ public class EventsAdapter extends BaseAdapter{
 
 // 3
 
-        Picasso.with(mContext).load(ue.imageUrl).placeholder(R.drawable.upcoming_events).into(thumbnailImageView);
+        Picasso.with(mContext).load(ue.imageUrl).placeholder(R.drawable.dr_nophoto).into(thumbnailImageView);
         return rowView;
     }
 

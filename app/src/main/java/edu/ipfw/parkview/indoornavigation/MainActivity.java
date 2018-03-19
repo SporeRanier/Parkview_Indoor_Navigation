@@ -121,6 +121,9 @@ public class MainActivity extends AppCompatActivity   {
             case R.id.drawer_upcoming_events:
                 fragmentClass = UpcomingEventsFragment.class;
                 break;
+            case R.id.drawer_directory:
+                fragmentClass = DirectoryFragment.class;
+                break;
             case R.id.drawer_contact_us:
                 fragmentClass = ContactUsActivity.class;
                 break;
@@ -161,6 +164,19 @@ public class MainActivity extends AppCompatActivity   {
             fragment = (Fragment) fragmentClass.newInstance();
             fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
             menuItem = (MenuItem)findViewById(R.id.drawer_upcoming_events);
+            menuItem.setChecked(true);
+            setTitle(menuItem.getTitle());
+
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    public void onDirectoryButtonClick(View v){
+        try{
+            fragmentClass = DirectoryFragment.class;
+            fragment = (Fragment) fragmentClass.newInstance();
+            fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
+            menuItem = (MenuItem)findViewById(R.id.drawer_directory);
             menuItem.setChecked(true);
             setTitle(menuItem.getTitle());
 

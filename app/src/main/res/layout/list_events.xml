@@ -14,7 +14,7 @@
       android:layout_marginStart="4dp"
       android:layout_marginTop="6dp"
       android:scaleType="centerInside"
-      tools:src="@mipmap/ic_launcher"
+      tools:src="@drawable/upcoming_events"
      />
 
   <TextView

@@ -33,11 +33,11 @@
                 android:layout_height="187dp"
                 android:background="@android:color/holo_blue_bright"
                 android:contentDescription="all doctors info"
-
+                android:onClick="onDirectoryButtonClick"
                 app:layout_constraintBottom_toTopOf="@+id/MainMenuUpcomingBtn"
                 app:layout_constraintEnd_toStartOf="@+id/MainMenuDirectionsBtn"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/address_book" />
+                app:srcCompat="@drawable/directory" />
 
             <ImageButton
                 android:id="@+id/MainMenuDirectionsBtn"
@@ -50,7 +50,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/MainMenuDirectoryBtn"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/directions" />
+                app:srcCompat="@drawable/directions_test" />
 
             <ImageButton
                 android:id="@+id/MainMenuUpcomingBtn"
@@ -74,7 +74,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/MainMenuUpcomingBtn"
                 app:layout_constraintTop_toBottomOf="@+id/MainMenuDirectionsBtn"
-                app:srcCompat="@drawable/wait_time_icon" />
+                app:srcCompat="@drawable/er_wait_time" />
 
             <ImageButton
                 android:id="@+id/MainMenuFindUsBtn"
