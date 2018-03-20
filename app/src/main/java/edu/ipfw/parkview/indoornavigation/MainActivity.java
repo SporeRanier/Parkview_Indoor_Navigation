@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
         fragmentManager = getSupportFragmentManager();
         fragment = null;
         fragmentClass = null;
-        locationManager = new MeridianLocationManager(this, Application.APP_KEY, this);
+        locationManager = new MeridianLocationManager(getApplicationContext(), Application.APP_KEY, this);
         buildMapFragment();
     }
 
@@ -229,6 +229,7 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
                 .setMapKey(Application.MAP_KEY)
                 .setMapOptions(configureMapOptions());
         mapFragment = mapBuilder.build();
+
         //mapFragment.getMapView().setShowsUserLocation(true);
         //locationManager.startListeningForLocation();
         //renewMapFragment(context);
@@ -241,7 +242,7 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
 
             @Override
             public void onMapLoadFinish() {
-                mapFragment.getMapView().setShowsUserLocation(true);
+                //mapFragment.getMapView().setShowsUserLocation(true);
             }
 
             @Override
@@ -281,7 +282,7 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
                 final MapView mapView = mapFragment.getMapView();
                 MeridianLocation location = mapView.getUserLocation();
                 if (location != null) {
-                    mapView.updateForLocation(location);
+                    //mapView.updateForLocation(location);
                 } else {
                     LocationRequest.requestCurrentLocation(mapView.getContext(), Application.APP_KEY, new LocationRequest.LocationRequestListener() {
                         @Override
@@ -299,6 +300,8 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
             }
         });
 
+        //mapFragment.getMapView().setShowsUserLocation(true);
+
     }
 
     private MapOptions configureMapOptions() {
@@ -313,7 +316,12 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
 
     @Override
     public void onLocationUpdate(MeridianLocation meridianLocation) {
-        mapFragment.getMapView().updateForLocation(locationManager.getLastLocation());
+        if(meridianLocation == null){
+
+        }else{
+            mapFragment.getMapView().updateForLocation(meridianLocation);
+        }
+
     }
 
     @Override
