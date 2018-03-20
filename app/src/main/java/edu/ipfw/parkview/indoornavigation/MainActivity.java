@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.arubanetworks.meridian.editor.Placemark;
+import com.arubanetworks.meridian.location.LocationRequest;
 import com.arubanetworks.meridian.location.MeridianLocation;
 import com.arubanetworks.meridian.location.MeridianLocationManager;
 import com.arubanetworks.meridian.location.MeridianOrientation;
@@ -30,7 +31,7 @@ import com.arubanetworks.meridian.maps.directions.DirectionsSource;
 import com.arubanetworks.meridian.maps.directions.TransportType;
 
 
-public class MainActivity extends AppCompatActivity   {
+public class MainActivity extends AppCompatActivity implements MeridianLocationManager.LocationUpdateListener {
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private NavigationView nvDrawer;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity   {
     private Fragment fragment;
     private MenuItem menuItem;
     private MapFragment mapFragment;
+    private MeridianLocationManager locationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +60,19 @@ public class MainActivity extends AppCompatActivity   {
         fragmentManager = getSupportFragmentManager();
         fragment = null;
         fragmentClass = null;
+        locationManager = new MeridianLocationManager(this, Application.APP_KEY, this);
         buildMapFragment();
-
     }
 
+    protected void onStart(){
+        locationManager.startListeningForLocation();
+        super.onStart();
+    }
+
+    protected void onStop(){
+        locationManager.stopListeningForLocation();
+        super.onStop();
+    }
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -250,11 +261,10 @@ public class MainActivity extends AppCompatActivity   {
             @Override
             public boolean onLocationButtonClick() {
                 Log.d("t","t");
-                /*
+
                 final MapView mapView = mapFragment.getMapView();
                 MeridianLocation location = mapView.getUserLocation();
                 if (location != null) {
-                    Log.d("HEYLLADJSDADLAD", "READINGUSERLOCATION");
                     mapView.updateForLocation(location);
                 } else {
                     LocationRequest.requestCurrentLocation(mapView.getContext(), Application.APP_KEY, new LocationRequest.LocationRequestListener() {
@@ -268,7 +278,7 @@ public class MainActivity extends AppCompatActivity   {
                             // handle the error
                         }
                     });
-                }*/
+                }
                 return true;
             }
         });
@@ -278,36 +288,35 @@ public class MainActivity extends AppCompatActivity   {
     private MapOptions configureMapOptions() {
         MapOptions options = MapOptions.getDefaultOptions();
         options.HIDE_LEVELS_CONTROL = true;
-        options.HIDE_OVERVIEW_BUTTON = true;
+        //options.HIDE_OVERVIEW_BUTTON = true;
+
         return options;
     }
 
-    private final MeridianLocationManager.LocationUpdateListener listener = new MeridianLocationManager.LocationUpdateListener() {
-        @Override
-        public void onLocationUpdate(MeridianLocation location) {
-            Log.d("t","t");
-        }
-
-        @Override
-        public void onLocationError(Throwable tr) {
-            Log.d("t","t");
-        }
-
-        @Override
-        public void onEnableBluetoothRequest() {
-
-        }
-
-        @Override
-        public void onEnableWiFiRequest() {
-        }
-
-        @Override
-        public void onEnableGPSRequest() {
-
-        }
-    };
 
 
+    @Override
+    public void onLocationUpdate(MeridianLocation meridianLocation) {
+        mapFragment.getMapView().updateForLocation(locationManager.getLastLocation());
+    }
 
+    @Override
+    public void onLocationError(Throwable throwable) {
+
+    }
+
+    @Override
+    public void onEnableBluetoothRequest() {
+
+    }
+
+    @Override
+    public void onEnableWiFiRequest() {
+
+    }
+
+    @Override
+    public void onEnableGPSRequest() {
+
+    }
 }
