@@ -6,8 +6,11 @@
             android:title="Main Menu"
             android:checked="true"/>
         <item
+            android:id="@+id/drawer_directory"
+            android:title="Directory" />
+        <item
             android:id="@+id/drawer_map"
-            android:title="Map" />
+            android:title="Directions" />
         <item
             android:id="@+id/drawer_upcoming_events"
             android:title="Upcoming Events" />
