@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
     private MapFragment mapFragment;
     private MeridianLocationManager locationManager;
 
+    private UserInfoDialog userInfo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -171,6 +173,10 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
 
     public void onEventsButtonClick(View v){
         try{
+            /*
+            userInfo = new UserInfoDialog();
+            userInfo.show(fragmentManager, "tt");
+            */
             fragmentClass = UpcomingEventsFragment.class;
             fragment = (Fragment) fragmentClass.newInstance();
             fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
