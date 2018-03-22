@@ -37,7 +37,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/MainMenuUpcomingBtn"
                 app:layout_constraintEnd_toStartOf="@+id/MainMenuDirectionsBtn"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/directory" />
+                app:srcCompat="@drawable/directory_icon" />
 
             <ImageButton
                 android:id="@+id/MainMenuDirectionsBtn"
@@ -50,7 +50,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/MainMenuDirectoryBtn"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/directions_test" />
+                app:srcCompat="@drawable/directions" />
 
             <ImageButton
                 android:id="@+id/MainMenuUpcomingBtn"
@@ -85,7 +85,7 @@
                 android:contentDescription="find us with google map"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/MainMenuWaitTimeBtn"
-                app:srcCompat="@mipmap/ic_launcher_foreground" />
+                app:srcCompat="@drawable/parkview_log" />
 
             <ImageButton
                 android:id="@+id/MainMenuContactUsBtn"
