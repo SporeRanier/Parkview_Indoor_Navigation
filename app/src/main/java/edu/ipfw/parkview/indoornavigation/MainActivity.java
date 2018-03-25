@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
     private MenuItem menuItem;
     private MapFragment mapFragment;
     private MeridianLocationManager locationManager;
+    private boolean firstStart = true;
 
     private UserInfoDialog userInfo;
 
@@ -64,6 +65,13 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
         fragmentClass = null;
         locationManager = new MeridianLocationManager(getApplicationContext(), Application.APP_KEY, this);
         buildMapFragment();
+
+        if(firstStart){
+            userInfo = new UserInfoDialog();
+            userInfo.show(fragmentManager, "User Data Dialog");
+
+        }
+
     }
 
     protected void onStart(){
@@ -122,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
 
             case R.id.drawer_main_menu:
                 needFrag = false;
+                firstStart = false;
                 intent = new Intent(MainActivity.this, MainActivity.class);
                 this.finishActivity(0);
                 startActivity(intent);
@@ -173,10 +182,6 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
 
     public void onEventsButtonClick(View v){
         try{
-
-            userInfo = new UserInfoDialog();
-            userInfo.show(fragmentManager, "tt");
-
             fragmentClass = UpcomingEventsFragment.class;
             fragment = (Fragment) fragmentClass.newInstance();
             fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
