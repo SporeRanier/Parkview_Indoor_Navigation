@@ -2,7 +2,9 @@ package edu.ipfw.parkview.indoornavigation;
 
 import com.arubanetworks.meridian.Meridian;
 import com.arubanetworks.meridian.editor.EditorKey;
-
+/*
+    Initialize static and constant fields of our application
+ */
 public class Application extends android.app.Application {
 
     public static final EditorKey APP_KEY = EditorKey.forApp("6555052652625920");

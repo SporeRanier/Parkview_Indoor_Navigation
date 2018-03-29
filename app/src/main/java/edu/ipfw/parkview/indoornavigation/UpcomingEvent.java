@@ -21,14 +21,13 @@
  */
 package edu.ipfw.parkview.indoornavigation;
 import android.content.Context;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.InputStream;
 import java.util.ArrayList;
 
+/* Class for maintaining data related to the upcoming event feed */
 public class UpcomingEvent {
 
     public String title;

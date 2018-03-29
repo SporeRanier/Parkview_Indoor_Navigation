@@ -1,10 +1,8 @@
 package edu.ipfw.parkview.indoornavigation;
 
-
-/**
- * Created by ddely on 3/23/18.
- */
-
+/*Store user data
+* TODO: create list of route/destination once location services are working
+*/
 class UserData {
 
     private String age;

@@ -20,28 +20,25 @@
  * THE SOFTWARE.
  */
 package edu.ipfw.parkview.indoornavigation;
-import android.content.Context;
-import android.util.Log;
 
+import android.content.Context;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.InputStream;
 import java.util.ArrayList;
 
+/* Class for maintaining data related to the staff directory feed */
 public class Directory {
 
     public String title;
     public String description;
-    public String room;
     public String imageUrl;
     public String instructionUrl;
     public String label;
 
     public static ArrayList<Directory> getRecipesFromFile(String filename, Context context){
         final ArrayList<Directory> eventList = new ArrayList<>();
-        Log.d("myTag", "This is my message");
         try {
             // Load data
             String jsonString = loadJsonFromAsset("directory.json", context);
@@ -56,8 +53,6 @@ public class Directory {
                 ue.description = recipes.getJSONObject(i).getString("description");
                 ue.imageUrl = recipes.getJSONObject(i).getString("image");
                 ue.instructionUrl = recipes.getJSONObject(i).getString("url");
-                Log.i("error", "error");
-
                 eventList.add(ue);
             }
         } catch (JSONException e) {
@@ -68,7 +63,7 @@ public class Directory {
     }
 
     private static String loadJsonFromAsset(String filename, Context context) {
-        String json = null;
+        String json;
 
         try {
             InputStream is = context.getAssets().open(filename);

@@ -1,6 +1,5 @@
 package edu.ipfw.parkview.indoornavigation;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Matrix;
@@ -16,7 +15,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.arubanetworks.meridian.editor.Placemark;
 import com.arubanetworks.meridian.location.LocationRequest;
 import com.arubanetworks.meridian.location.MeridianLocation;
 import com.arubanetworks.meridian.location.MeridianLocationManager;
@@ -24,12 +22,6 @@ import com.arubanetworks.meridian.location.MeridianOrientation;
 import com.arubanetworks.meridian.maps.MapFragment;
 import com.arubanetworks.meridian.maps.MapOptions;
 import com.arubanetworks.meridian.maps.MapView;
-import com.arubanetworks.meridian.maps.directions.Directions;
-import com.arubanetworks.meridian.maps.directions.DirectionsDestination;
-import com.arubanetworks.meridian.maps.directions.DirectionsResponse;
-import com.arubanetworks.meridian.maps.directions.DirectionsSource;
-import com.arubanetworks.meridian.maps.directions.TransportType;
-
 
 public class MainActivity extends AppCompatActivity implements MeridianLocationManager.LocationUpdateListener {
     private DrawerLayout mDrawer;
@@ -124,7 +116,6 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
     public void selectDrawerItem(MenuItem menuItem) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Boolean needFrag = true;
-        Boolean needMap = false;
         Intent intent;
         switch(menuItem.getItemId()) {
 
@@ -182,6 +173,7 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
 
     public void onEventsButtonClick(View v){
         try{
+            //create and display events fragment
             fragmentClass = UpcomingEventsFragment.class;
             fragment = (Fragment) fragmentClass.newInstance();
             fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
@@ -195,6 +187,7 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
     }
     public void onDirectoryButtonClick(View v){
         try{
+            //create and display directory fragment
             fragmentClass = DirectoryFragment.class;
             fragment = (Fragment) fragmentClass.newInstance();
             fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
@@ -209,6 +202,7 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
 
     public void onWaitTimeButtonClick(View v) {
         try{
+            //create and display wait time fragment
             fragmentClass = WaitTimeFragment.class;
             fragment = (Fragment) fragmentClass.newInstance();
             fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
@@ -222,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
     }
     public void onContactUsClick(View v) {
         try{
-
+            //create and display contact fragment
             fragmentClass = ContactUsActivity.class;
             fragment = (Fragment) fragmentClass.newInstance();
             fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
