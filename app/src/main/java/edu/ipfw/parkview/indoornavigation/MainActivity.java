@@ -22,6 +22,7 @@ import com.arubanetworks.meridian.location.MeridianOrientation;
 import com.arubanetworks.meridian.maps.MapFragment;
 import com.arubanetworks.meridian.maps.MapOptions;
 import com.arubanetworks.meridian.maps.MapView;
+import com.arubanetworks.meridian.maps.directions.DirectionsDestination;
 
 public class MainActivity extends AppCompatActivity implements MeridianLocationManager.LocationUpdateListener {
     private DrawerLayout mDrawer;
@@ -132,7 +133,8 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
                 break;
 
             case R.id.drawer_upcoming_events:
-                fragmentClass = UpcomingEventsFragment.class;
+                //fragmentClass = UpcomingEventsFragment.class;
+                fragmentClass = SearchFragment.class;
                 break;
             case R.id.drawer_directory:
                 fragmentClass = DirectoryFragment.class;
@@ -239,71 +241,7 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
         //locationManager.startListeningForLocation();
         //renewMapFragment(context);
 
-        mapFragment.setMapEventListener(new MapView.MapEventListener() {
-            @Override
-            public void onMapLoadStart() {
 
-            }
-
-            @Override
-            public void onMapLoadFinish() {
-                //mapFragment.getMapView().setShowsUserLocation(true);
-            }
-
-            @Override
-            public void onPlacemarksLoadFinish() {
-
-            }
-
-            @Override
-            public void onMapRenderFinish() {
-
-            }
-
-            @Override
-            public void onMapLoadFail(Throwable throwable) {
-
-            }
-
-            @Override
-            public void onMapTransformChange(Matrix matrix) {
-
-            }
-
-            @Override
-            public void onLocationUpdated(MeridianLocation meridianLocation) {
-
-            }
-
-            @Override
-            public void onOrientationUpdated(MeridianOrientation meridianOrientation) {
-
-            }
-
-            @Override
-            public boolean onLocationButtonClick() {
-                Log.d("t","t");
-
-                final MapView mapView = mapFragment.getMapView();
-                MeridianLocation location = mapView.getUserLocation();
-                if (location != null) {
-                    //mapView.updateForLocation(location);
-                } else {
-                    LocationRequest.requestCurrentLocation(mapView.getContext(), Application.APP_KEY, new LocationRequest.LocationRequestListener() {
-                        @Override
-                        public void onResult(MeridianLocation location) {
-                            mapView.updateForLocation(location);
-                        }
-
-                        @Override
-                        public void onError(LocationRequest.ErrorType location) {
-                            // handle the error
-                        }
-                    });
-                }
-                return true;
-            }
-        });
 
         //mapFragment.getMapView().setShowsUserLocation(true);
 
