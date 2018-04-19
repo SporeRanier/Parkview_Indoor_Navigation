@@ -1,8 +1,12 @@
 package edu.ipfw.parkview.indoornavigation;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -36,22 +40,26 @@ public class DirectionsActivity extends AppCompatActivity {
 
 
 
-        EditorKey appKey = (EditorKey) getIntent().getSerializableExtra(APP_KEY);
-        DirectionsSource source = (DirectionsSource) getIntent().getSerializableExtra(DIRECTIONS_SOURCE);
-        DirectionsDestination destination = (DirectionsDestination) getIntent().getSerializableExtra(DIRECTIONS_DESTINATION);
+//        EditorKey appKey = (EditorKey) getIntent().getSerializableExtra(APP_KEY);
+//        DirectionsSource source = (DirectionsSource) getIntent().getSerializableExtra(DIRECTIONS_SOURCE);
+//        DirectionsDestination destination = (DirectionsDestination) getIntent().getSerializableExtra(DIRECTIONS_DESTINATION);
 
         if (savedInstanceState == null) {
-            MapFragment mapFragment = new MapFragment.Builder()
-                    .setAppKey(appKey)
-                    .setSource(source)
-                    .setDestination(destination)
-                    .build();
+            if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)  != PackageManager.PERMISSION_GRANTED)
+                ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
+            else {
+                    MapFragment mapFragment = new MapFragment.Builder()
+                            .setAppKey(Application.APP_KEY)
+                            .setMapKey(Application.MAP_KEY)
+                            .build();
 
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(android.R.id.content, mapFragment)
-                    .commit();
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .add(android.R.id.content, mapFragment)
+                            .commit();
+            }
         }
+
     }
 
     @Override

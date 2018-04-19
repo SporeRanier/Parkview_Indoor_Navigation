@@ -1,12 +1,16 @@
 package edu.ipfw.parkview.indoornavigation;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -33,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
     private Class fragmentClass;
     private Fragment fragment;
     private MenuItem menuItem;
-    private MapFragment mapFragment;
+    //private MapFragment mapFragment;
     private MeridianLocationManager locationManager;
     private boolean firstStart = true;
 
@@ -56,10 +60,16 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
         fragmentManager = getSupportFragmentManager();
         fragment = null;
         fragmentClass = null;
-        locationManager = new MeridianLocationManager(getApplicationContext(), Application.APP_KEY, this);
-        buildMapFragment();
+        locationManager = null;
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        else {
+            locationManager = new MeridianLocationManager(getApplicationContext(), Application.APP_KEY, this);
+            buildMapFragment();
+        }
 
-        if(firstStart){
+
+        if (firstStart) {
             userInfo = new UserInfoDialog();
             userInfo.show(fragmentManager, "User Data Dialog");
 
@@ -67,15 +77,16 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
 
     }
 
-    protected void onStart(){
+    protected void onStart() {
         locationManager.startListeningForLocation();
         super.onStart();
     }
 
-    protected void onStop(){
+    protected void onStop() {
         locationManager.stopListeningForLocation();
         super.onStop();
     }
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -101,8 +112,9 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
     private ActionBarDrawerToggle setupDrawerToggle() {
         // NOTE: Make sure you pass in a valid toolbar reference.  ActionBarDrawToggle() does not require it
         // and will not render the hamburger icon without it.
-        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
+        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open, R.string.drawer_close);
     }
+
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -118,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Boolean needFrag = true;
         Intent intent;
-        switch(menuItem.getItemId()) {
+        switch (menuItem.getItemId()) {
 
             case R.id.drawer_main_menu:
                 needFrag = false;
@@ -128,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
                 startActivity(intent);
                 break;
             case R.id.drawer_map:
-                fragmentManager.beginTransaction().replace(R.id.clMainMenu, mapFragment).commit();
+                fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
                 needFrag = false;
                 break;
 
@@ -150,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
                 break;
         }
 
-        if(needFrag) {
+        if (needFrag) {
             try {
                 fragment = (Fragment) fragmentClass.newInstance();
 
@@ -170,80 +182,144 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
     }
 
     public void onDirectionsButtonClick(View v) {
-        fragmentManager.beginTransaction().replace(R.id.clMainMenu, mapFragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
     }
 
-    public void onEventsButtonClick(View v){
-        try{
+    public void onEventsButtonClick(View v) {
+        try {
             //create and display events fragment
             fragmentClass = UpcomingEventsFragment.class;
             fragment = (Fragment) fragmentClass.newInstance();
             fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
-            menuItem = (MenuItem)findViewById(R.id.drawer_upcoming_events);
+            menuItem = (MenuItem) findViewById(R.id.drawer_upcoming_events);
             menuItem.setChecked(true);
             setTitle(menuItem.getTitle());
 
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    public void onDirectoryButtonClick(View v){
-        try{
+
+    public void onDirectoryButtonClick(View v) {
+        try {
             //create and display directory fragment
             fragmentClass = DirectoryFragment.class;
             fragment = (Fragment) fragmentClass.newInstance();
             fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
-            menuItem = (MenuItem)findViewById(R.id.drawer_directory);
+            menuItem = (MenuItem) findViewById(R.id.drawer_directory);
             menuItem.setChecked(true);
             setTitle(menuItem.getTitle());
 
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void onWaitTimeButtonClick(View v) {
-        try{
+        try {
             //create and display wait time fragment
             fragmentClass = WaitTimeFragment.class;
             fragment = (Fragment) fragmentClass.newInstance();
             fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
-            menuItem = (MenuItem)findViewById(R.id.drawer_wait_time);
+            menuItem = (MenuItem) findViewById(R.id.drawer_wait_time);
             menuItem.setChecked(true);
             setTitle(menuItem.getTitle());
 
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     public void onContactUsClick(View v) {
-        try{
+        try {
             //create and display contact fragment
             fragmentClass = ContactUsActivity.class;
             fragment = (Fragment) fragmentClass.newInstance();
             fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
-            menuItem = (MenuItem)findViewById(R.id.drawer_contact_us);
+            menuItem = (MenuItem) findViewById(R.id.drawer_contact_us);
             menuItem.setChecked(true);
 
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
 
     private void buildMapFragment() {
-        MapFragment.Builder mapBuilder = new MapFragment.Builder()
-                .setMapKey(Application.MAP_KEY)
-                .setMapOptions(configureMapOptions());
-        mapFragment = mapBuilder.build();
+        MapFragment.Builder builder = new MapFragment.Builder()
+                .setMapKey(Application.MAP_KEY);
+        MapOptions mapOptions = MapOptions.getDefaultOptions();
+        mapOptions.HIDE_OVERVIEW_BUTTON = true;
+        builder.setMapOptions(mapOptions);
 
-        //mapFragment.getMapView().setShowsUserLocation(true);
-        //locationManager.startListeningForLocation();
-        //renewMapFragment(context);
+        final MapFragment mapFragment = builder.build();
+        mapFragment.setMapEventListener(new MapView.MapEventListener() {
 
+            @Override
+            public void onMapLoadFinish() {
 
+            }
 
-        //mapFragment.getMapView().setShowsUserLocation(true);
+            @Override
+            public void onMapLoadStart() {
+
+            }
+
+            @Override
+            public void onPlacemarksLoadFinish() {
+
+            }
+
+            @Override
+            public void onMapRenderFinish() {
+
+            }
+
+            @Override
+            public void onMapLoadFail(Throwable tr) {
+
+            }
+
+            @Override
+            public void onMapTransformChange(Matrix transform) {
+
+            }
+
+            @Override
+            public void onLocationUpdated(MeridianLocation location) {
+
+            }
+
+            @Override
+            public void onOrientationUpdated(MeridianOrientation orientation) {
+
+            }
+
+            @Override
+            public boolean onLocationButtonClick() {
+                // example of how to override the behavior of the location button
+                final MapView mapView = mapFragment.getMapView();
+                MeridianLocation location = mapView.getUserLocation();
+                if (location != null) {
+                    mapView.updateForLocation(location);
+
+                } else {
+                    LocationRequest.requestCurrentLocation(getApplicationContext(), Application.APP_KEY, new LocationRequest.LocationRequestListener() {
+                        @Override
+                        public void onResult(MeridianLocation location) {
+                            mapView.updateForLocation(location);
+                        }
+
+                        @Override
+                        public void onError(LocationRequest.ErrorType location) {
+                            // handle the error
+                        }
+                    });
+                }
+                return true;
+            }
+        });
+        fragment = mapFragment;
 
     }
 
@@ -256,13 +332,12 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
     }
 
 
-
     @Override
     public void onLocationUpdate(MeridianLocation meridianLocation) {
-        if(meridianLocation == null){
+        if (meridianLocation == null) {
 
-        }else{
-            mapFragment.getMapView().updateForLocation(meridianLocation);
+        } else {
+            //mapFragment.getMapView().updateForLocation(meridianLocation);
         }
 
     }
