@@ -23,7 +23,7 @@ public class UpcomingEventsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_upcoming_events, container, false);
 
         mListView = (ListView) view.findViewById(R.id.lvEvents);
-        final ArrayList<UpcomingEvent> eventList = UpcomingEvent.getRecipesFromFile("recipes.json", view.getContext());
+        final ArrayList<UpcomingEvent> eventList = UpcomingEvent.getRecipesFromFile("upcomingevents.json", view.getContext());
 
         EventsAdapter adapter = new EventsAdapter(this.getContext(), eventList);
         mListView.setAdapter(adapter);

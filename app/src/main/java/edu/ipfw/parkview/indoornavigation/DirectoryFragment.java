@@ -21,7 +21,7 @@ public class DirectoryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_directory, container, false);
 
         mListView = (ListView) view.findViewById(R.id.lvEvents);
-        final ArrayList<Directory> eventList = Directory.getRecipesFromFile("recipes.json", view.getContext());
+        final ArrayList<Directory> eventList = Directory.getRecipesFromFile("directory.json", view.getContext());
 
         DirectoryAdapter adapter = new DirectoryAdapter(this.getContext(), eventList);
         mListView.setAdapter(adapter);

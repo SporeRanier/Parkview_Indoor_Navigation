@@ -16,12 +16,10 @@ import com.arubanetworks.meridian.maps.MapFragment;
 import com.arubanetworks.meridian.maps.directions.DirectionsDestination;
 import com.arubanetworks.meridian.maps.directions.DirectionsSource;
 
-/**
- * Demonstrates the use of the directions API to request a route and display the steps as text.
- */
-
+/* Use Meridian API to host Blue-dot enable map fragment*/
 public class DirectionsActivity extends AppCompatActivity {
 
+    //Meridian API editor keys
     public static final String APP_KEY = "meridian.AppKey";
     public static final String DIRECTIONS_SOURCE = "meridian.DirectionsSource";
     public static final String DIRECTIONS_DESTINATION = "meridian.DirectionsDestination";
@@ -37,13 +35,6 @@ public class DirectionsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_directions);
-
-
-
-//        EditorKey appKey = (EditorKey) getIntent().getSerializableExtra(APP_KEY);
-//        DirectionsSource source = (DirectionsSource) getIntent().getSerializableExtra(DIRECTIONS_SOURCE);
-//        DirectionsDestination destination = (DirectionsDestination) getIntent().getSerializableExtra(DIRECTIONS_DESTINATION);
-
         if (savedInstanceState == null) {
             if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)  != PackageManager.PERMISSION_GRANTED)
                 ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);

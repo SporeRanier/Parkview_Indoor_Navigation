@@ -18,6 +18,7 @@ import android.widget.FrameLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.RadioButton;
 
+/*Inherit DialogFragment to create custom Dialog for user data input*/
 public class UserInfoDialog extends DialogFragment {
 
     private FrameLayout frameLayout;
@@ -33,6 +34,7 @@ public class UserInfoDialog extends DialogFragment {
 
 
         builder.setMessage("Please enter your info")
+                //Listener for submit button click
                 .setPositiveButton("Submit", new DialogInterface.OnClickListener(){
                     public void onClick(DialogInterface dialog, int id){
                         if(((RadioButton) getDialog().findViewById(R.id.radioMale)).isChecked()){
@@ -45,12 +47,12 @@ public class UserInfoDialog extends DialogFragment {
                         temp = new UserData( ((EditText) getDialog().findViewById(R.id.ageTextBox)).getText().toString(), gender);
                     }
                 })
+                //Listener for skip button click
                 .setNegativeButton("Skip", new DialogInterface.OnClickListener(){
                     public void onClick(DialogInterface dialog, int id){
 
                     }
                 });
-
         alertDialog = builder.create();
         LayoutInflater inflater = alertDialog.getLayoutInflater();
         View dialogLayout = inflater.inflate(R.layout.user_info_dialog, frameLayout);

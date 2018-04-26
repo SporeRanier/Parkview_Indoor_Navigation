@@ -15,7 +15,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -26,8 +25,9 @@ import com.arubanetworks.meridian.location.MeridianOrientation;
 import com.arubanetworks.meridian.maps.MapFragment;
 import com.arubanetworks.meridian.maps.MapOptions;
 import com.arubanetworks.meridian.maps.MapView;
-import com.arubanetworks.meridian.maps.directions.DirectionsDestination;
 
+
+/*Implement MeridianLocationManager to asynchronously update user location while running*/
 public class MainActivity extends AppCompatActivity implements MeridianLocationManager.LocationUpdateListener {
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
     private MenuItem menuItem;
     //private MapFragment mapFragment;
     private MeridianLocationManager locationManager;
-    private boolean firstStart = true;
 
     private UserInfoDialog userInfo;
 
@@ -57,10 +56,14 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
         drawerToggle = setupDrawerToggle();
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
         setupDrawerContent(nvDrawer);
+
+        //initialize fragment utilities
         fragmentManager = getSupportFragmentManager();
         fragment = null;
         fragmentClass = null;
         locationManager = null;
+
+        //ensure required permissions are enabled
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         else {
@@ -68,8 +71,9 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
             buildMapFragment();
         }
 
-
-        if (firstStart) {
+        //only query user info if fresh start
+        if (Application.firstStart()) {
+            Application.setFirstStart();
             userInfo = new UserInfoDialog();
             userInfo.show(fragmentManager, "User Data Dialog");
 
@@ -126,125 +130,7 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
                 });
     }
 
-    public void selectDrawerItem(MenuItem menuItem) {
-        // Create a new fragment and specify the fragment to show based on nav item clicked
-        Boolean needFrag = true;
-        Intent intent;
-        switch (menuItem.getItemId()) {
-
-            case R.id.drawer_main_menu:
-                needFrag = false;
-                firstStart = false;
-                intent = new Intent(MainActivity.this, MainActivity.class);
-                this.finishActivity(0);
-                startActivity(intent);
-                break;
-            case R.id.drawer_map:
-                fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
-                needFrag = false;
-                break;
-
-            case R.id.drawer_upcoming_events:
-                //fragmentClass = UpcomingEventsFragment.class;
-                fragmentClass = SearchFragment.class;
-                break;
-            case R.id.drawer_directory:
-                fragmentClass = DirectoryFragment.class;
-                break;
-            case R.id.drawer_contact_us:
-                fragmentClass = ContactUsActivity.class;
-                break;
-            case R.id.drawer_wait_time:
-                fragmentClass = WaitTimeFragment.class;
-                break;
-            default:
-                fragmentClass = UpcomingEventsFragment.class;
-                break;
-        }
-
-        if (needFrag) {
-            try {
-                fragment = (Fragment) fragmentClass.newInstance();
-
-                fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        }
-        // Highlight the selected item has been done by NavigationView
-        menuItem.setChecked(true);
-        // Set action bar title
-        setTitle(menuItem.getTitle());
-        // Close the navigation drawer
-        mDrawer.closeDrawers();
-    }
-
-    public void onDirectionsButtonClick(View v) {
-        fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
-    }
-
-    public void onEventsButtonClick(View v) {
-        try {
-            //create and display events fragment
-            fragmentClass = UpcomingEventsFragment.class;
-            fragment = (Fragment) fragmentClass.newInstance();
-            fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
-            menuItem = (MenuItem) findViewById(R.id.drawer_upcoming_events);
-            menuItem.setChecked(true);
-            setTitle(menuItem.getTitle());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void onDirectoryButtonClick(View v) {
-        try {
-            //create and display directory fragment
-            fragmentClass = DirectoryFragment.class;
-            fragment = (Fragment) fragmentClass.newInstance();
-            fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
-            menuItem = (MenuItem) findViewById(R.id.drawer_directory);
-            menuItem.setChecked(true);
-            setTitle(menuItem.getTitle());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void onWaitTimeButtonClick(View v) {
-        try {
-            //create and display wait time fragment
-            fragmentClass = WaitTimeFragment.class;
-            fragment = (Fragment) fragmentClass.newInstance();
-            fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
-            menuItem = (MenuItem) findViewById(R.id.drawer_wait_time);
-            menuItem.setChecked(true);
-            setTitle(menuItem.getTitle());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void onContactUsClick(View v) {
-        try {
-            //create and display contact fragment
-            fragmentClass = ContactUsActivity.class;
-            fragment = (Fragment) fragmentClass.newInstance();
-            fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
-            menuItem = (MenuItem) findViewById(R.id.drawer_contact_us);
-            menuItem.setChecked(true);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
+    //initialize class' fragment to Meridian MapFragment and set credentials
     private void buildMapFragment() {
         MapFragment.Builder builder = new MapFragment.Builder()
                 .setMapKey(Application.MAP_KEY);
@@ -323,22 +209,8 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
 
     }
 
-    private MapOptions configureMapOptions() {
-        MapOptions options = MapOptions.getDefaultOptions();
-        options.HIDE_LEVELS_CONTROL = true;
-        //options.HIDE_OVERVIEW_BUTTON = true;
-
-        return options;
-    }
-
-
     @Override
     public void onLocationUpdate(MeridianLocation meridianLocation) {
-        if (meridianLocation == null) {
-
-        } else {
-            //mapFragment.getMapView().updateForLocation(meridianLocation);
-        }
 
     }
 
@@ -360,5 +232,129 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
     @Override
     public void onEnableGPSRequest() {
 
+    }
+
+/*============================ App Navigation Methods ================================================*/
+
+    public void selectDrawerItem(MenuItem menuItem) {
+        // Create a new fragment and specify the fragment to show based on nav item clicked
+        Boolean needFrag = true;
+        Intent intent;
+        switch (menuItem.getItemId()) {
+
+            //if navigating to main memu from drawer close current activity
+            case R.id.drawer_main_menu:
+                needFrag = false;
+                intent = new Intent(MainActivity.this, MainActivity.class);
+                this.finishActivity(0);
+                startActivity(intent);
+                break;
+
+            //if opening map fragment call buildMapFragment to reinitialize class' fragment to a MapFragment
+            case R.id.drawer_map:
+                buildMapFragment();
+                fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
+                needFrag = false;
+                break;
+
+            case R.id.drawer_upcoming_events:
+                fragmentClass = UpcomingEventsFragment.class;
+
+                break;
+            case R.id.drawer_directory:
+                fragmentClass = DirectoryFragment.class;
+                break;
+            case R.id.drawer_contact_us:
+                fragmentClass = ContactUsActivity.class;
+                break;
+            case R.id.drawer_wait_time:
+                fragmentClass = WaitTimeFragment.class;
+                break;
+            default:
+                fragmentClass = UpcomingEventsFragment.class;
+                break;
+        }
+
+        //if map or main activity was not selected do fragment transaction
+        if (needFrag) {
+            try {
+                fragment = (Fragment) fragmentClass.newInstance();
+                fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+        // Highlight the selected item has been done by NavigationView
+        menuItem.setChecked(true);
+        // Set action bar title
+        setTitle(menuItem.getTitle());
+        // Close the navigation drawer
+        mDrawer.closeDrawers();
+    }
+
+    public void onDirectionsButtonClick(View v) {
+        buildMapFragment();
+        fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
+    }
+
+    public void onEventsButtonClick(View v) {
+        try {
+            //create and display events fragment
+            fragmentClass = UpcomingEventsFragment.class;
+            fragment = (Fragment) fragmentClass.newInstance();
+            fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
+            menuItem = (MenuItem) findViewById(R.id.drawer_upcoming_events);
+            menuItem.setChecked(true);
+            setTitle(menuItem.getTitle());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void onDirectoryButtonClick(View v) {
+        try {
+            //create and display directory fragment
+            fragmentClass = DirectoryFragment.class;
+            fragment = (Fragment) fragmentClass.newInstance();
+            fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
+            menuItem = (MenuItem) findViewById(R.id.drawer_directory);
+            menuItem.setChecked(true);
+            setTitle(menuItem.getTitle());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void onWaitTimeButtonClick(View v) {
+        try {
+            //create and display wait time fragment
+            fragmentClass = WaitTimeFragment.class;
+            fragment = (Fragment) fragmentClass.newInstance();
+            fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
+            menuItem = (MenuItem) findViewById(R.id.drawer_wait_time);
+            menuItem.setChecked(true);
+            setTitle(menuItem.getTitle());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void onContactUsClick(View v) {
+        try {
+            //create and display contact fragment
+            fragmentClass = ContactUsActivity.class;
+            fragment = (Fragment) fragmentClass.newInstance();
+            fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
+            menuItem = (MenuItem) findViewById(R.id.drawer_contact_us);
+            menuItem.setChecked(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
