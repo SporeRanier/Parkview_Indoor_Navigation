@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "edu.ipfw.parkview.indoornavigation"
         minSdkVersion 22
@@ -36,6 +36,7 @@ dependencies {
     compile 'com.github.devlight.navigationtabstrip:navigationtabstrip:+'
     testCompile 'junit:junit:4.12'
     implementation 'com.google.android.gms:play-services-maps:11.6.2'
+    implementation 'com.google.android.gms:play-services-analytics:16.0.1'
     implementation 'com.android.support:appcompat-v7:26.1.0'
 
     // inject meridian dependencies

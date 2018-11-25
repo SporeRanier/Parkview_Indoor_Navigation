@@ -1,0 +1,7 @@
+android {
+    // ...
+    defaultConfig {
+        // ...
+        buildConfigField "String", "ANALYTICS_ID", UA-129787898-1
+    }
+}
