@@ -25,6 +25,9 @@ import com.arubanetworks.meridian.location.MeridianOrientation;
 import com.arubanetworks.meridian.maps.MapFragment;
 import com.arubanetworks.meridian.maps.MapOptions;
 import com.arubanetworks.meridian.maps.MapView;
+import com.arubanetworks.meridian.campaigns.Campaign;
+import com.arubanetworks.meridian.campaigns.CampaignBroadcastReceiver;
+import com.arubanetworks.meridian.campaigns.CampaignsService;
 
 
 /*Implement MeridianLocationManager to asynchronously update user location while running*/
