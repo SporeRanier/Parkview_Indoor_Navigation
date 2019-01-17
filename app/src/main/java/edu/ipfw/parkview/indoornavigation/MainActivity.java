@@ -93,13 +93,13 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
 
     protected void onStart() {
         locationManager.startListeningForLocation();
-        //campaignServicer.startMonitoring();
+        campaignServicer.startMonitoring(getApplicationContext(), Application.APP_KEY);
         super.onStart();
     }
 
     protected void onStop() {
         locationManager.stopListeningForLocation();
-        //campaignServicer.stopMonitoring();
+        campaignServicer.stopMonitoring(getApplicationContext());
         super.onStop();
     }
 
