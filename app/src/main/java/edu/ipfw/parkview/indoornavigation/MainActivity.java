@@ -42,7 +42,9 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
     private MenuItem menuItem;
     //private MapFragment mapFragment;
     private MeridianLocationManager locationManager;
-
+    private Campaign campaign;
+    private CampaignBroadcastReceiver campaignReceiver;
+    private CampaignsService campaignServicer;
     private UserInfoDialog userInfo;
 
     @Override
@@ -65,12 +67,17 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
         fragment = null;
         fragmentClass = null;
         locationManager = null;
+        campaign = null;
+        campaignReceiver = null;
+        campaignServicer = null;
 
         //ensure required permissions are enabled
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         else {
             locationManager = new MeridianLocationManager(getApplicationContext(), Application.APP_KEY, this);
+            campaignServicer = new CampaignsService();
+
             buildMapFragment();
         }
 
@@ -86,11 +93,13 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
 
     protected void onStart() {
         locationManager.startListeningForLocation();
+        //campaignServicer.startMonitoring();
         super.onStart();
     }
 
     protected void onStop() {
         locationManager.stopListeningForLocation();
+        //campaignServicer.stopMonitoring();
         super.onStop();
     }
 
