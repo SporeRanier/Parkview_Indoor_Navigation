@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.arubanetworks.meridian.location.LocationRequest;
 import com.arubanetworks.meridian.location.MeridianLocation;
@@ -28,6 +29,7 @@ import com.arubanetworks.meridian.maps.MapView;
 import com.arubanetworks.meridian.campaigns.Campaign;
 import com.arubanetworks.meridian.campaigns.CampaignBroadcastReceiver;
 import com.arubanetworks.meridian.campaigns.CampaignsService;
+import com.arubanetworks.meridian.requests.MeridianRequest;
 
 
 /*Implement MeridianLocationManager to asynchronously update user location while running*/
@@ -76,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         else {
             locationManager = new MeridianLocationManager(getApplicationContext(), Application.APP_KEY, this);
-            campaignServicer = new CampaignsService();
+            //campaignServicer = new CampaignsService();
 
             buildMapFragment();
         }
@@ -91,9 +93,25 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
 
     }
 
+    private void resetCampaigns() {
+
+        CampaignsService.resetAllCampaigns(this, Application.APP_KEY, new MeridianRequest.Listener<Void>() {
+            @Override
+            public void onResponse(Void response) {
+                Toast.makeText(MainActivity.this, "Reset Campaigns Succeeded.", Toast.LENGTH_SHORT).show();
+                CampaignsService.startMonitoring(MainActivity.this, Application.APP_KEY);
+            }
+        }, new MeridianRequest.ErrorListener() {
+            @Override
+            public void onError(Throwable tr) {
+                Toast.makeText(MainActivity.this, "Reset Campaigns Failed: " + tr.getMessage(), Toast.LENGTH_LONG).show();
+                CampaignsService.startMonitoring(MainActivity.this, Application.APP_KEY);
+            }
+        });
+    }
     protected void onStart() {
         locationManager.startListeningForLocation();
-        campaignServicer.startMonitoring(getApplicationContext(), Application.APP_KEY);
+        CampaignsService.startMonitoring(getApplicationContext(), Application.APP_KEY);
         super.onStart();
     }
 
@@ -147,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
         MapFragment.Builder builder = new MapFragment.Builder()
                 .setMapKey(Application.MAP_KEY);
         MapOptions mapOptions = MapOptions.getDefaultOptions();
-        mapOptions.HIDE_OVERVIEW_BUTTON = true;
+        mapOptions.HIDE_OVERVIEW_BUTTON = false;
         builder.setMapOptions(mapOptions);
 
         final MapFragment mapFragment = builder.build();
@@ -220,6 +238,7 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
         fragment = mapFragment;
 
     }
+
 
     @Override
     public void onLocationUpdate(MeridianLocation meridianLocation) {
