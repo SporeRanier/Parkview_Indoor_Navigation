@@ -17,6 +17,7 @@ public class Application extends android.app.Application {
         Meridian.configure(this);
         Meridian.getShared().initGoalsForLocation(APP_KEY.toString());
         Meridian.getShared().setEditorToken(EDITOR_TOKEN);
+        CampaignReceiver.CreateNotificationChannel(this);
         super.onCreate();
     }
 
