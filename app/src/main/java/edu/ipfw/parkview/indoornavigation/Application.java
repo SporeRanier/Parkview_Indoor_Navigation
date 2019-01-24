@@ -8,6 +8,7 @@ public class Application extends android.app.Application {
 
     public static final EditorKey APP_KEY = EditorKey.forApp("6555052652625920");
     public static final EditorKey MAP_KEY = EditorKey.forMap("5649391675244544", APP_KEY);
+    public static final String CAMPAIGN_ID = ""; // unique id for one of your campaigns here.
     public static final String EDITOR_TOKEN = "f477d4c144c1541e6452b812bc3b194d4770b6c4"; // your editor token here
     public UserData userData;
     static boolean firstStart;

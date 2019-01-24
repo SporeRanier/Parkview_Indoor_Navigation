@@ -27,7 +27,7 @@ public class CampaignFragment extends Fragment {
         fragment.setArguments(b);
         return fragment;
     }
-/*
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -68,5 +68,5 @@ public class CampaignFragment extends Fragment {
             }
         });
         return view;
-    } */
+    }
 }
