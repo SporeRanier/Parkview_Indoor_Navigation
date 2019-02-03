@@ -14,11 +14,13 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.arubanetworks.meridian.internal.util.Strings;
 import com.arubanetworks.meridian.location.LocationRequest;
 import com.arubanetworks.meridian.location.MeridianLocation;
 import com.arubanetworks.meridian.location.MeridianLocationManager;
@@ -108,6 +110,154 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
                 CampaignsService.startMonitoring(MainActivity.this, Application.APP_KEY);
             }
         });
+    }
+    private void selectItem(int position) {
+
+        // update the main content by replacing fragments
+        final Fragment fragment;
+
+        switch (position) {
+            case 0:
+                MapFragment.Builder builder = new MapFragment.Builder()
+                        .setMapKey(Application.MAP_KEY);
+                MapOptions mapOptions = MapOptions.getDefaultOptions();
+                mapOptions.HIDE_OVERVIEW_BUTTON = true;
+                builder.setMapOptions(mapOptions);
+                // example: how to set placemark markers text size
+                /*
+                    MapOptions mapOptions = ((MapFragment) fragment).getMapOptions();
+                    mapOptions.setTextSize(14);
+                    builder.setMapOptions(mapOptions);
+                */
+                // example: how to start directions programmatically
+
+                final MapFragment mapFragment = builder.build();
+                mapFragment.setMapEventListener(new MapView.MapEventListener() {
+
+                    @Override
+                    public void onMapLoadFinish() {
+
+                    }
+
+                    @Override
+                    public void onMapLoadStart() {
+
+                    }
+
+                    @Override
+                    public void onPlacemarksLoadFinish() {
+                        /*for (Placemark placemark : mapFragment.getMapView().getPlacemarks()) {
+                            if ("APPLE".equals(placemark.getName())) {
+                                mapFragment.startDirections(DirectionsDestination.forPlacemarkKey(placemark.getKey()));
+                            }
+                        }*/
+                    }
+
+                    @Override
+                    public void onMapRenderFinish() {
+
+                    }
+
+                    @Override
+                    public void onMapLoadFail(Throwable tr) {
+                        if (mapFragment.isAdded() && mapFragment.getActivity() != null) {
+                            new AlertDialog.Builder(mapFragment.getActivity())
+                                    .setTitle(getString(com.arubanetworks.meridian.R.string.mr_error_title))
+                                    .setMessage(tr != null && !Strings.isNullOrEmpty(tr.getLocalizedMessage())
+                                            ? tr.getLocalizedMessage()
+                                            : getString(com.arubanetworks.meridian.R.string.mr_error_invalid_map))
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .setPositiveButton(com.arubanetworks.meridian.R.string.mr_ok, null)
+                                    .show();
+                        }
+                    }
+
+                    @Override
+                    public void onMapTransformChange(Matrix transform) {
+
+                    }
+
+                    @Override
+                    public void onLocationUpdated(MeridianLocation location) {
+
+                    }
+
+                    @Override
+                    public void onOrientationUpdated(MeridianOrientation orientation) {
+
+                    }
+
+                    @Override
+                    public boolean onLocationButtonClick() {
+                        // example of how to override the behavior of the location button
+                        final MapView mapView = mapFragment.getMapView();
+                        MeridianLocation location = mapView.getUserLocation();
+                        if (location != null) {
+                            mapView.updateForLocation(location);
+
+                        } else {
+                            LocationRequest.requestCurrentLocation(getApplicationContext(), Application.APP_KEY, new LocationRequest.LocationRequestListener() {
+                                @Override
+                                public void onResult(MeridianLocation location) {
+                                    mapView.updateForLocation(location);
+                                }
+
+                                @Override
+                                public void onError(LocationRequest.ErrorType location) {
+                                    // handle the error
+                                }
+                            });
+                        }
+                        return true;
+                    }
+                });
+                fragment = mapFragment;
+
+                break;
+            case 1:
+                fragment = NearbyFragment.newInstance(Application.APP_KEY);
+                break;
+            case 2:
+                fragment = SearchFragment.newInstance(Application.APP_KEY);
+                break;
+            case 3:
+                fragment = CustomMarkerFragment.newInstance(Application.MAP_KEY);
+                break;
+            case 4:
+                fragment = CampaignFragment.newInstance(Application.APP_KEY);
+                break;
+            case 5:
+                //fragment = ScrollingFragment.newInstance(Application.MAP_KEY);
+                break;
+            case 6:
+                fragment = LocationFragment.newInstance(Application.APP_KEY);
+                break;
+            case 7:
+                //fragment = LocationSharingFragment.newInstance();
+                break;
+            case 8:
+                //fragment = SingleMarkerIDFragment.newInstance(Application.APP_KEY, Application.PLACEMARK_UID, null);
+                break;
+            case 9:
+                //fragment = TagsFragment.newInstance(Application.MAP_KEY);
+                break;
+            case 10:
+                //fragment = SingleTagFragment.newInstance(Application.MAP_KEY, Application.TAG_MAC);
+                break;
+            case 11:
+                //fragment = LocationSharingMapFragment.newInstance(Application.MAP_KEY);
+                break;
+            default:
+                return;
+        }
+
+        getSupportFragmentManager()
+                .beginTransaction()
+             //   .replace(R.id.container, fragment)
+                .commit();
+
+        //setTitle(getResources().getStringArray(R.array.section_titles)[position]);
+        //drawerLayout.closeDrawer(drawerList);
     }
     protected void onStart() {
         locationManager.startListeningForLocation();
