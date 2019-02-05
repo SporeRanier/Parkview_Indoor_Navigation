@@ -27,7 +27,7 @@ public class CampaignReceiver extends CampaignBroadcastReceiver {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL);
         builder.setContentTitle(title);
         builder.setContentText(message);
-        //builder.setSmallIcon(R.drawable.ic_launcher);
+        builder.setSmallIcon(R.drawable.ic_launcher);
         builder.setDefaults(Notification.DEFAULT_ALL);
         builder.setContentIntent(contentIntent);
         builder.setAutoCancel(true);
@@ -46,12 +46,12 @@ public class CampaignReceiver extends CampaignBroadcastReceiver {
         return map;
     }
 
-    //@Override
-    //protected Map<String, String> getPushRegistrationUserInfo(Context context) {
-    //    HashMap<String, String> hm = new HashMap<String, String>();
-    //    hm.put("TestKey", "TestVal");
-    //    return hm;
-    //}
+    @Override
+    protected Map<String, String> getPushRegistrationUserInfo(Context context) {
+        HashMap<String, String> hm = new HashMap<String, String>();
+        hm.put("TestKey", "TestVal");
+        return hm;
+    }
 
     public static void CreateNotificationChannel(Context context) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);

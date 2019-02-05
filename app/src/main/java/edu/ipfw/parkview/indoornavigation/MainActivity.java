@@ -19,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+import android.util.Log;
 
 import com.arubanetworks.meridian.internal.util.Strings;
 import com.arubanetworks.meridian.location.LocationRequest;
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("myTag", "This is my message");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_main_menu);
 
@@ -80,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         else {
             locationManager = new MeridianLocationManager(getApplicationContext(), Application.APP_KEY, this);
-            //campaignServicer = new CampaignsService();
+            campaignServicer = new CampaignsService();
 
             buildMapFragment();
         }
