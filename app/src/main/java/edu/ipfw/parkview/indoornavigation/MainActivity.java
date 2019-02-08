@@ -1,15 +1,21 @@
 package edu.ipfw.parkview.indoornavigation;
 
 import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Matrix;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.NotificationManagerCompat;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -19,6 +25,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+import android.widget.EditText;
 import android.util.Log;
 
 import com.arubanetworks.meridian.internal.util.Strings;
@@ -45,17 +52,25 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
     private Class fragmentClass;
     private Fragment fragment;
     private MenuItem menuItem;
-    //private MapFragment mapFragment;
+    private MapFragment mapFragment;
     private MeridianLocationManager locationManager;
     private Campaign campaign;
     private CampaignBroadcastReceiver campaignReceiver;
     private CampaignsService campaignServicer;
+    private NotificationManagerCompat notificationManager;
+    private EditText editTextMessage;
+    private EditText editTextTitle;
+    private NotificationChannel notificationChannel;
+
+
     private UserInfoDialog userInfo;
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("myTag", "This is my message");
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_new_main_menu);
 
         // Set a Toolbar to replace the ActionBar.
@@ -95,6 +110,12 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
 
         }
 
+    }
+    private void testNotification(){
+        String title = "Parkview Navigation";
+        String message = "Welcome to Parkview Navigation! Where would you like to go?";
+        //CampaignReceiver.CreateNotificationChannel(this);
+        //Notification notification = new NotificationCompat.Builder(this, CampaignReceiver.notificationChannel);
     }
 
     private void resetCampaigns() {
@@ -261,6 +282,20 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
         //setTitle(getResources().getStringArray(R.array.section_titles)[position]);
         //drawerLayout.closeDrawer(drawerList);
     }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        // Begin monitoring for Aruba Beacon-based Campaign events
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        // This odd delay thing is due to a bug with 23 currently.
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                CampaignsService.startMonitoring(MainActivity.this, Application.APP_KEY);
+                selectItem(0);
+            }
+        },1000);
+    }
     protected void onStart() {
         locationManager.startListeningForLocation();
         CampaignsService.startMonitoring(getApplicationContext(), Application.APP_KEY);
@@ -269,7 +304,7 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
 
     protected void onStop() {
         locationManager.stopListeningForLocation();
-        campaignServicer.stopMonitoring(getApplicationContext());
+        CampaignsService.stopMonitoring(getApplicationContext());
         super.onStop();
     }
 
