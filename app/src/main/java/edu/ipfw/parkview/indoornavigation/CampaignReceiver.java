@@ -63,6 +63,7 @@ public class CampaignReceiver extends CampaignBroadcastReceiver {
             notificationChannel.setDescription("Campaign Channel");
             notificationChannel.enableLights(true);
             notificationManager.createNotificationChannel(notificationChannel);
+
         }
     }
 }

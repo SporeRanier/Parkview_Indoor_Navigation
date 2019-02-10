@@ -52,4 +52,4 @@ public class ShowPopUp extends Activity {
         mainLayout.addView(but, params);
         setContentView(mainLayout);
     }
-} 
+}
