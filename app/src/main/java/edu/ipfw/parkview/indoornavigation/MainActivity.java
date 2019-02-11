@@ -28,6 +28,7 @@ import android.widget.Toast;
 import android.widget.EditText;
 import android.util.Log;
 
+import com.arubanetworks.meridian.editor.Placemark;
 import com.arubanetworks.meridian.internal.util.Strings;
 import com.arubanetworks.meridian.location.LocationRequest;
 import com.arubanetworks.meridian.location.MeridianLocation;
@@ -39,6 +40,7 @@ import com.arubanetworks.meridian.maps.MapView;
 import com.arubanetworks.meridian.campaigns.Campaign;
 import com.arubanetworks.meridian.campaigns.CampaignBroadcastReceiver;
 import com.arubanetworks.meridian.campaigns.CampaignsService;
+import com.arubanetworks.meridian.maps.Marker;
 import com.arubanetworks.meridian.requests.MeridianRequest;
 
 
@@ -420,6 +422,27 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
                     });
                 }
                 return true;
+            }
+        });
+        mapFragment.setMarkerEventListener(new MapView.MarkerEventListener() {
+            @Override
+            public boolean onMarkerSelect(Marker marker) {
+                return false;
+            }
+
+            @Override
+            public boolean onMarkerDeselect(Marker marker) {
+                return false;
+            }
+
+            @Override
+            public Marker markerForPlacemark(Placemark placemark) {
+                return null;
+            }
+
+            @Override
+            public boolean onCalloutClick(Marker marker) {
+                return false;
             }
         });
         fragment = mapFragment;
