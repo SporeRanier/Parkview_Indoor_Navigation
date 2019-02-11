@@ -427,6 +427,11 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
         mapFragment.setMarkerEventListener(new MapView.MarkerEventListener() {
             @Override
             public boolean onMarkerSelect(Marker marker) {
+                String stringo = marker.getCalloutTitle();
+                String stringy = marker.getCalloutDetails();
+                String stringu = marker.getDetails();
+                String stringa = marker.getName();
+                //web service call
                 return false;
             }
 
