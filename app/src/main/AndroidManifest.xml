@@ -40,6 +40,8 @@
         <activity android:name=".DirectionsActivity"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"/>
+        <activity android:name=".Pop"
+            android:theme="@style/AppTheme.CustomTheme"/>
     </application>
 
 </manifest>
