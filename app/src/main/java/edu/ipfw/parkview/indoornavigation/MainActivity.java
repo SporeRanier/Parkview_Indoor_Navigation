@@ -432,6 +432,8 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
                 String stringu = marker.getDetails();
                 String stringa = marker.getName();
                 //web service call
+                startActivity(new Intent(MainActivity.this,Pop.class));
+
                 return false;
             }
 
