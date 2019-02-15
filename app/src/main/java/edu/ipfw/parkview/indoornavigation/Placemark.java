@@ -1,10 +1,18 @@
 package edu.ipfw.parkview.indoornavigation;
 
+import java.io.InputStream;
+
 public class Placemark {
 
     private String name;
     private String description;
     private String imageURL;
+
+
+
+    public void buildPlacemarkArray(){
+
+    }
 
     public String getName() {
         return name;

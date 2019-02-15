@@ -1,0 +1,58 @@
+{
+
+  "results": [
+    {
+      "modified": "2018-12-18T23:03:06Z",
+      "created": "2017-12-07T02:16:01Z",
+      "name": "Floor 1",
+      "parent_map": "",
+      "id": "5649391675244544",
+      "image_url": null,
+      "svg_url": "https://edit.meridianapps.com/api/floors/5649391675244544.svg?namespace=6555052652625920_1&hash=807acf427f50a270b95d58758bad6e01&style=8c2cdac4d80d580f454e95e790ef8dd9&default_style=original",
+      "unformatted_svg_url": "https://edit.meridianapps.com/api/blob/NjU1NTA1MjY1MjYyNTkyMC9tYXBzLzM2NzA2NDAwMy0xNTE1NDM0MTY4/367064003-1515434168.svg",
+      "name_is_generated": true,
+      "is_default": true,
+      "published": true,
+      "group": "5629499534213120",
+      "group_name": "ETCS",
+      "level": 1.0,
+      "level_label": "1",
+      "width": 3059,
+      "height": 3154,
+      "width_meters": 60.3253669450561,
+      "height_meters": 62.19882554583424,
+      "units_per_meter": 50.70835296843059,
+      "north_offset": 0.0,
+      "north": 337.87592500303776,
+      "gps_ref_points": "41.11601120992919,-85.10978579521179,41.11553633860805,-85.10938614606856,75.87174034118652,269.7661895751953,2655.350830078125,2109.656005859375",
+      "overview_map_id": "",
+      "is_outdoor": false,
+      "zoom_max": 23.0,
+      "zoom_scalar": 1.0,
+      "invalid": false,
+      "asset_tracking_control_tags": false,
+      "geojson_alignment_points": [
+        [
+          null,
+          null
+        ],
+        [
+          null,
+          null
+        ],
+        [
+          -85.10939071285088,
+          41.11533767425146
+        ],
+        [
+          null,
+          null
+        ],
+        [
+          null,
+          null
+        ]
+      ]
+    }
+  ]
+}

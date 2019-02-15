@@ -1,0 +1,117 @@
+{
+
+  "results": [
+    {
+      "modified": "2019-01-17T17:18:12Z",
+      "created": "2018-10-19T21:23:31Z",
+      "id": "5664248772427776",
+      "title": "Testing Campaign 1",
+      "target_url": null,
+      "zones": [],
+      "beacons": [
+        "84EB180E7DE4"
+      ],
+      "always_broadcast": true,
+      "allday": false,
+      "dtstart": null,
+      "dtend": null,
+      "duration": null,
+      "message": "Welcome to the Engineering, Technology, and Computer Science Building!  This is the south entrance from the atrium.",
+      "active": true,
+      "link": null,
+      "type": "passive",
+      "beacons_rssi_trigger_level": null,
+      "beacon_type": "on_enter",
+      "beacon_uuid_major": null,
+      "mapless_rssi_trigger_level": null,
+      "apb_autodeploy": false,
+      "cooldown_hours": 1,
+      "action": "message",
+      "active_trigger_distance": 2
+    },
+    {
+      "modified": "2019-01-17T17:19:18Z",
+      "created": "2018-10-19T21:32:32Z",
+      "id": "5642554087309312",
+      "title": "Testing Campaign 2",
+      "target_url": null,
+      "zones": [],
+      "beacons": [
+        "84EB180EC0F0"
+      ],
+      "always_broadcast": true,
+      "allday": false,
+      "dtstart": null,
+      "dtend": null,
+      "duration": null,
+      "message": "Welcome to the Engineering, Technology, and Computer Science building!  This is the North entrance.",
+      "active": true,
+      "link": null,
+      "type": "passive",
+      "beacons_rssi_trigger_level": null,
+      "beacon_type": "on_enter",
+      "beacon_uuid_major": null,
+      "mapless_rssi_trigger_level": null,
+      "apb_autodeploy": false,
+      "cooldown_hours": 1,
+      "action": "message",
+      "active_trigger_distance": 5
+    },
+    {
+      "modified": "2019-01-17T17:21:32Z",
+      "created": "2018-10-19T21:33:43Z",
+      "id": "5648554290839552",
+      "title": "Testing Campaign 3",
+      "target_url": null,
+      "zones": [],
+      "beacons": [
+        "84EB180E7869"
+      ],
+      "always_broadcast": true,
+      "allday": false,
+      "dtstart": null,
+      "dtend": null,
+      "duration": null,
+      "message": "Welcome!  You are now passing the Computer Science Main Office!  How may we help you?",
+      "active": true,
+      "link": null,
+      "type": "passive",
+      "beacons_rssi_trigger_level": null,
+      "beacon_type": "on_enter",
+      "beacon_uuid_major": null,
+      "mapless_rssi_trigger_level": null,
+      "apb_autodeploy": false,
+      "cooldown_hours": 1,
+      "action": "message",
+      "active_trigger_distance": 5
+    },
+    {
+      "modified": "2019-01-17T17:20:30Z",
+      "created": "2018-10-19T21:34:42Z",
+      "id": "5656846262075392",
+      "title": "Testing Campaign 4 ",
+      "target_url": null,
+      "zones": [],
+      "beacons": [
+        "84EB180EC314"
+      ],
+      "always_broadcast": true,
+      "allday": false,
+      "dtstart": null,
+      "dtend": null,
+      "duration": null,
+      "message": "Welcome to the Engineering, Technology, and Computer Science building!  This is the East Entrance.",
+      "active": true,
+      "link": null,
+      "type": "passive",
+      "beacons_rssi_trigger_level": null,
+      "beacon_type": "on_enter",
+      "beacon_uuid_major": null,
+      "mapless_rssi_trigger_level": null,
+      "apb_autodeploy": false,
+      "cooldown_hours": 1,
+      "action": "message",
+      "active_trigger_distance": 2
+    }
+  ]
+}

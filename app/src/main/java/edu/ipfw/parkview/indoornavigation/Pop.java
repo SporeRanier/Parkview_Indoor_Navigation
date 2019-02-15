@@ -6,6 +6,9 @@ import android.util.DisplayMetrics;
 
 public class Pop extends Activity {
 
+    String roomName;
+    String roomDesc;
+
     @Override
     protected void  onCreate(Bundle savedInstanceState) {
 
@@ -17,6 +20,8 @@ public class Pop extends Activity {
 
         int width = dm.widthPixels;
         int height = dm.heightPixels;
+
+
 
         getWindow().setLayout((int)(width*.8),(int)(height*.6));
     }

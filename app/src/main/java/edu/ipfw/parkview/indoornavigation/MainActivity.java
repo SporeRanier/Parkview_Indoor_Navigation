@@ -28,6 +28,20 @@ import android.widget.Toast;
 import android.widget.EditText;
 import android.util.Log;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import org.json.JSONException;
+import org.json.JSONObject;
+import android.os.Bundle;
+import android.app.Activity;
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.view.Menu;
+import android.widget.ListView;
+
+
 import com.arubanetworks.meridian.editor.Placemark;
 import com.arubanetworks.meridian.internal.util.Strings;
 import com.arubanetworks.meridian.location.LocationRequest;
@@ -42,6 +56,10 @@ import com.arubanetworks.meridian.campaigns.CampaignBroadcastReceiver;
 import com.arubanetworks.meridian.campaigns.CampaignsService;
 import com.arubanetworks.meridian.maps.Marker;
 import com.arubanetworks.meridian.requests.MeridianRequest;
+
+import java.io.InputStream;
+
+import static android.app.PendingIntent.getActivity;
 
 
 /*Implement MeridianLocationManager to asynchronously update user location while running*/
@@ -63,6 +81,11 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
     private EditText editTextMessage;
     private EditText editTextTitle;
     private NotificationChannel notificationChannel;
+    private HttpHandler handler;
+    private String url;
+    private String response;
+    private String placemarkInfo;
+
 
 
     private UserInfoDialog userInfo;
@@ -93,6 +116,12 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
         campaign = null;
         campaignReceiver = null;
         campaignServicer = null;
+        HttpHandler handler = new HttpHandler();
+        url = "https://edit.meridianapps.com/api/locations/6555052652625920/placemarks?format=api";
+        response = handler.makeServiceCall(url);
+        placemarkInfo = loadJSONFromAsset();
+
+
 
         //ensure required permissions are enabled
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
@@ -112,6 +141,21 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
 
         }
 
+    }
+    public String loadJSONFromAsset() {
+        String json = null;
+        try {
+            InputStream is = this.getAssets().open("placemarks.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
     }
     private void testNotification(){
         String title = "Parkview Navigation";
@@ -432,6 +476,7 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
                 String stringu = marker.getDetails();
                 String stringa = marker.getName();
                 //web service call
+
                 startActivity(new Intent(MainActivity.this,Pop.class));
 
                 return false;
