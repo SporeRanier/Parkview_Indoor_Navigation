@@ -32,6 +32,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.os.Bundle;
@@ -85,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
     private String url;
     private String response;
     private String placemarkInfo;
+    private JSONArray placeArray;
 
 
 
@@ -120,7 +123,12 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
         url = "https://edit.meridianapps.com/api/locations/6555052652625920/placemarks?format=api";
         response = handler.makeServiceCall(url);
         placemarkInfo = loadJSONFromAsset();
-
+        placeArray = null;
+        try {
+            placeArray = new JSONArray(placemarkInfo);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
 
         //ensure required permissions are enabled

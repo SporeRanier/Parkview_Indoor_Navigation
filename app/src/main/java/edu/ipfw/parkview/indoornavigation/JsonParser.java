@@ -1,6 +1,6 @@
 package edu.ipfw.parkview.indoornavigation;
 
-public class JsonReader {
+public class JsonParser {
 
 
 }
