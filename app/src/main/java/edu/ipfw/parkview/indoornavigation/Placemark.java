@@ -1,11 +1,16 @@
 package edu.ipfw.parkview.indoornavigation;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.InputStream;
 
 public class Placemark {
 
+    @JsonProperty("name")
     private String name;
+    @JsonProperty("description")
     private String description;
+    @JsonProperty("imageURL")
     private String imageURL;
 
 

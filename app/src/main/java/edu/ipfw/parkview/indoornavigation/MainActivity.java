@@ -58,8 +58,12 @@ import com.arubanetworks.meridian.campaigns.CampaignBroadcastReceiver;
 import com.arubanetworks.meridian.campaigns.CampaignsService;
 import com.arubanetworks.meridian.maps.Marker;
 import com.arubanetworks.meridian.requests.MeridianRequest;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.InputStream;
+import java.util.Map;
 
 import static android.app.PendingIntent.getActivity;
 
@@ -119,14 +123,31 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
         campaign = null;
         campaignReceiver = null;
         campaignServicer = null;
+        Map<String,Object> map = null;
         HttpHandler handler = new HttpHandler();
         url = "https://edit.meridianapps.com/api/locations/6555052652625920/placemarks?format=api";
         response = handler.makeServiceCall(url);
         placemarkInfo = loadJSONFromAsset();
+        ObjectMapper mapper = new ObjectMapper();
+
         placeArray = null;
         try {
+            map = mapper.readValue(placemarkInfo, Map.class);
+            for(String key:map.keySet()) {
+                Map placemarkInfoMap = new HashMap<String, String>();
+                Object o1 = map.get(key);
+                placemarkInfoMap = (Map) map.get(key);
+                Placemark placemark = new Placemark();
+                placemark.setName((String)placemarkInfoMap.get("name"));
+            }
             placeArray = new JSONArray(placemarkInfo);
         } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (JsonParseException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 

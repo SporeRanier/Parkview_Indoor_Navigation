@@ -8,16 +8,16 @@
     <Button
         android:id="@+id/button"
         android:layout_width="188dp"
-        android:layout_height="65dp"
+        android:layout_height="67dp"
         android:background="@color/colorButtonGreen"
-        android:fontFamily="sans-serif-thin"
+        android:fontFamily="sans-serif"
         android:onClick="onDirectionsButtonClick"
         android:text="Start!"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="@color/mr_md_gray_100"
         android:textStyle="bold"
         tools:layout_editor_absoluteX="94dp"
-        tools:layout_editor_absoluteY="489dp" />
+        tools:layout_editor_absoluteY="488dp" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -52,7 +52,7 @@
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         android:textColor="@color/colorTextWhite"
-        android:textSize="44sp"
+        android:textSize="42sp"
         android:textStyle="bold"
         tools:layout_editor_absoluteX="134dp"
         tools:layout_editor_absoluteY="63dp" />
