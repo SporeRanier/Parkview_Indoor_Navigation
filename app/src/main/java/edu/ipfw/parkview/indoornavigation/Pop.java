@@ -3,11 +3,14 @@ package edu.ipfw.parkview.indoornavigation;
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.DisplayMetrics;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.net.URL;
 import java.io.InputStream;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class Pop extends Activity {
 
@@ -15,6 +18,7 @@ public class Pop extends Activity {
     String roomDesc;
     String roomURL;
     TextView textView;
+    TextView textView2;
     ImageView imageView;
 
 
@@ -49,6 +53,10 @@ public class Pop extends Activity {
         roomDesc = "test";
         roomURL = "test";
 
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+        StrictMode.setThreadPolicy(policy);
+
         Bundle b = getIntent().getExtras();
         if(b != null){
             roomName = b.getString("name");
@@ -64,7 +72,10 @@ public class Pop extends Activity {
 
         textView =(TextView)findViewById(R.id.textView);
         textView.setText(roomName);
+        textView2 =(TextView)findViewById(R.id.textView2);
+        textView2.setText(roomDesc);
         Drawable pic = LoadImageFromWebOperations(roomURL);
+        imageView =(ImageView)findViewById(R.id.imageView);
         imageView.setImageDrawable(pic);
 
 
@@ -77,7 +88,11 @@ public class Pop extends Activity {
     }
     public static Drawable LoadImageFromWebOperations(String url) {
         try {
-            InputStream is = (InputStream) new URL(url).getContent();
+            String httpsURL = url;
+            URL myUrl = new URL(httpsURL);
+            HttpsURLConnection conn = (HttpsURLConnection)myUrl.openConnection();
+            InputStream is = conn.getInputStream();
+            //InputStream is = (InputStream) new URL(url).getContent();
             Drawable d = Drawable.createFromStream(is, null);
             return d;
         } catch (Exception e) {
