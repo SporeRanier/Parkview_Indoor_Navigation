@@ -96,11 +96,78 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
     private String placemarkInfo;
     private JSONArray placeArray;
     private Map<String, PFWPlacemark> placemarkMap = new HashMap<>();
+    private String placeName;
+    private String placeDesc;
+    private String placeURL;
 
 
 
 
     private UserInfoDialog userInfo;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getResponse() {
+        return response;
+    }
+
+    public void setResponse(String response) {
+        this.response = response;
+    }
+
+    public String getPlacemarkInfo() {
+        return placemarkInfo;
+    }
+
+    public void setPlacemarkInfo(String placemarkInfo) {
+        this.placemarkInfo = placemarkInfo;
+    }
+
+    public JSONArray getPlaceArray() {
+        return placeArray;
+    }
+
+    public void setPlaceArray(JSONArray placeArray) {
+        this.placeArray = placeArray;
+    }
+
+    public Map<String, PFWPlacemark> getPlacemarkMap() {
+        return placemarkMap;
+    }
+
+    public void setPlacemarkMap(Map<String, PFWPlacemark> placemarkMap) {
+        this.placemarkMap = placemarkMap;
+    }
+
+    public String getPlaceName() {
+        return placeName;
+    }
+
+    public void setPlaceName(String placeName) {
+        this.placeName = placeName;
+    }
+
+    public String getPlaceDesc() {
+        return placeDesc;
+    }
+
+    public void setPlaceDesc(String placeDesc) {
+        this.placeDesc = placeDesc;
+    }
+
+    public String getPlaceURL() {
+        return placeURL;
+    }
+
+    public void setPlaceURL(String placeURL) {
+        this.placeURL = placeURL;
+    }
 
     @Override
 
@@ -128,6 +195,9 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
         campaign = null;
         campaignReceiver = null;
         campaignServicer = null;
+        placeName = null;
+        placeDesc = null;
+        placeURL = null;
         Map<String,Object> map = null;
         HttpHandler handler = new HttpHandler();
         url = "https://edit.meridianapps.com/api/locations/6555052652625920/placemarks?format=api";
@@ -519,10 +589,19 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
                 String stringu = marker.getDetails();
                 String stringa = marker.getName();
                 PFWPlacemark placemark = placemarkMap.get(stringa);
+                placeName = placemark.getName();
+                placeDesc = placemark.getDescription();
+                placeURL = placemark.getImageURL();
 
                 //web service call
-
-                startActivity(new Intent(MainActivity.this,Pop.class));
+                Intent i = new Intent(MainActivity.this,Pop.class);
+                Bundle b = new Bundle();
+                b.putString("name",placeName);
+                b.putString("desc",placeDesc);
+                b.putString("url",placeURL);
+                i.putExtras(b);
+                startActivity(i);
+                finish();
 
                 return false;
             }

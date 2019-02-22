@@ -8,9 +8,37 @@ public class Pop extends Activity {
 
     String roomName;
     String roomDesc;
+    String roomURL;
+
+
+    public String getRoomName() {
+        return roomName;
+    }
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
+    }
+
+    public String getRoomDesc() {
+        return roomDesc;
+    }
+
+    public void setRoomDesc(String roomDesc) {
+        this.roomDesc = roomDesc;
+    }
+
+    public String getRoomURL() {
+        return roomURL;
+    }
+
+    public void setRoomURL(String roomURL) {
+        this.roomURL = roomURL;
+    }
+
 
     @Override
     protected void  onCreate(Bundle savedInstanceState) {
+
 
         super.onCreate(savedInstanceState);
 
