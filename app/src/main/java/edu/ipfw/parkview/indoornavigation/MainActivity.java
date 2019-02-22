@@ -63,6 +63,9 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.InputStream;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import static android.app.PendingIntent.getActivity;
@@ -92,6 +95,8 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
     private String response;
     private String placemarkInfo;
     private JSONArray placeArray;
+    private Map<String, PFWPlacemark> placemarkMap = new HashMap<>();
+
 
 
 
@@ -129,16 +134,25 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
         response = handler.makeServiceCall(url);
         placemarkInfo = loadJSONFromAsset();
         ObjectMapper mapper = new ObjectMapper();
-
         placeArray = null;
         try {
             map = mapper.readValue(placemarkInfo, Map.class);
             for(String key:map.keySet()) {
-                Map placemarkInfoMap = new HashMap<String, String>();
-                Object o1 = map.get(key);
-                placemarkInfoMap = (Map) map.get(key);
-                Placemark placemark = new Placemark();
-                placemark.setName((String)placemarkInfoMap.get("name"));
+                Map placemarkInfoMap = new HashMap<String, Object>();
+
+                List<HashMap<String,ArrayList>> listlist = new ArrayList<>();
+                listlist = (List<HashMap<String, ArrayList>>) map.get(key);
+                Iterator it = listlist.iterator();
+                while(it.hasNext()) {
+                    Map<String,String> dataMap = (Map<String, String>) it.next();
+                    PFWPlacemark placemark = new PFWPlacemark();
+                    placemark.setName((String) dataMap.get("name"));
+                    placemark.setDescription((String) dataMap.get("description"));
+                    placemark.setImageURL((String) dataMap.get("image_url"));
+                    placemarkMap.put(placemark.getName(), placemark);
+                }
+
+
             }
             placeArray = new JSONArray(placemarkInfo);
         } catch (JSONException e) {
@@ -244,7 +258,7 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
 
                     @Override
                     public void onPlacemarksLoadFinish() {
-                        /*for (Placemark placemark : mapFragment.getMapView().getPlacemarks()) {
+                        /*for (PFWPlacemark placemark : mapFragment.getMapView().getPlacemarks()) {
                             if ("APPLE".equals(placemark.getName())) {
                                 mapFragment.startDirections(DirectionsDestination.forPlacemarkKey(placemark.getKey()));
                             }
@@ -504,6 +518,8 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
                 String stringy = marker.getCalloutDetails();
                 String stringu = marker.getDetails();
                 String stringa = marker.getName();
+                PFWPlacemark placemark = placemarkMap.get(stringa);
+
                 //web service call
 
                 startActivity(new Intent(MainActivity.this,Pop.class));

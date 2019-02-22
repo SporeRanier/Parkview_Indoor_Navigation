@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.InputStream;
 
-public class Placemark {
+public class PFWPlacemark {
 
     @JsonProperty("name")
     private String name;
