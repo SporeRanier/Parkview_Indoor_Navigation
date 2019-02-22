@@ -9,7 +9,7 @@
         android:id="@+id/textView"
         android:layout_width="189dp"
         android:layout_height="105dp"
-        android:text="Parkview Test"
+        android:text="ET 125"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         android:textColor="@color/colorTextWhite"
         android:textStyle="bold"

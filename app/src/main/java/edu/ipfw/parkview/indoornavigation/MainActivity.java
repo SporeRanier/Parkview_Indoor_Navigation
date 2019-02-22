@@ -601,7 +601,6 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
                 b.putString("url",placeURL);
                 i.putExtras(b);
                 startActivity(i);
-                finish();
 
                 return false;
             }

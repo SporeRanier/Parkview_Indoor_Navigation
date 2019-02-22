@@ -3,6 +3,9 @@ package edu.ipfw.parkview.indoornavigation;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class Pop extends Activity {
 
@@ -38,7 +41,16 @@ public class Pop extends Activity {
 
     @Override
     protected void  onCreate(Bundle savedInstanceState) {
+        roomName = "test";
+        roomDesc = "test";
+        roomURL = "test";
 
+        Bundle b = new Bundle();
+        if(b != null){
+            roomName = b.getString("name");
+            roomDesc = b.getString("desc");
+            roomURL = b.getString("url");
+        }
 
         super.onCreate(savedInstanceState);
 
