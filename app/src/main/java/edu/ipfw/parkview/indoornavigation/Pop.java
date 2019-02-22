@@ -1,17 +1,21 @@
 package edu.ipfw.parkview.indoornavigation;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import java.net.URL;
+import java.io.InputStream;
 
 public class Pop extends Activity {
 
     String roomName;
     String roomDesc;
     String roomURL;
+    TextView textView;
+    ImageView imageView;
 
 
     public String getRoomName() {
@@ -45,7 +49,7 @@ public class Pop extends Activity {
         roomDesc = "test";
         roomURL = "test";
 
-        Bundle b = new Bundle();
+        Bundle b = getIntent().getExtras();
         if(b != null){
             roomName = b.getString("name");
             roomDesc = b.getString("desc");
@@ -58,11 +62,26 @@ public class Pop extends Activity {
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
+        textView =(TextView)findViewById(R.id.textView);
+        textView.setText(roomName);
+        Drawable pic = LoadImageFromWebOperations(roomURL);
+        imageView.setImageDrawable(pic);
+
+
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
 
 
         getWindow().setLayout((int)(width*.8),(int)(height*.6));
+    }
+    public static Drawable LoadImageFromWebOperations(String url) {
+        try {
+            InputStream is = (InputStream) new URL(url).getContent();
+            Drawable d = Drawable.createFromStream(is, null);
+            return d;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
