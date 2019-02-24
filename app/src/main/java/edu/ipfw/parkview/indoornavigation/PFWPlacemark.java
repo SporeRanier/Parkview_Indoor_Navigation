@@ -12,12 +12,30 @@ public class PFWPlacemark {
     private String description;
     @JsonProperty("imageURL")
     private String imageURL;
-
-
+    private boolean photosphere;
+    private String photospherelink;
 
     public void buildPlacemarkArray(){
 
     }
+
+    public boolean isPhotosphere() {
+        return photosphere;
+    }
+
+    public void setPhotosphere(boolean photosphere) {
+        this.photosphere = photosphere;
+    }
+
+    public String getPhotospherelink() {
+        return photospherelink;
+    }
+
+    public void setPhotospherelink(String photospherelink) {
+        this.photospherelink = photospherelink;
+    }
+
+
 
     public String getName() {
         return name;
