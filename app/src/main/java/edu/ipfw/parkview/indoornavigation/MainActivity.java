@@ -37,6 +37,8 @@ import java.util.HashMap;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
@@ -594,7 +596,10 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
                 PFWPlacemark placemark = placemarkMap.get(stringa);
                 placeName = placemark.getName();
                 placeDesc = placemark.getDescription();
+                stringo = Jsoup.parse(placeDesc).text();
+                placeDesc = stringo;
                 placeURL = placemark.getImageURL();
+                placemark.removeParagraph();
 
                 //web service call
                 Intent i = new Intent(MainActivity.this,Pop.class);

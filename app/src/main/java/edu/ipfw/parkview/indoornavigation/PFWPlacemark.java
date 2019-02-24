@@ -15,6 +15,15 @@ public class PFWPlacemark {
     private boolean photosphere;
     private String photospherelink;
 
+
+    public void removeParagraph(){
+        try {
+            description.replaceAll("\\<[^>]*>","");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void buildPlacemarkArray(){
 
     }
@@ -60,4 +69,6 @@ public class PFWPlacemark {
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
     }
+
+
 }
