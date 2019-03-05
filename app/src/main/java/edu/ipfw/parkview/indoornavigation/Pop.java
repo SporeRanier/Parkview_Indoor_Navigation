@@ -1,10 +1,13 @@
 package edu.ipfw.parkview.indoornavigation;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.DisplayMetrics;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.net.URL;
@@ -98,5 +101,11 @@ public class Pop extends Activity {
         } catch (Exception e) {
             return null;
         }
+    }
+    public void openPhoto(View view){
+        
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://goo.gl/maps/JWfNBqQthE52"));
+        startActivity(browserIntent);
+
     }
 }

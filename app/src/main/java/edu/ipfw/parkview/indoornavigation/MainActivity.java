@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
     private String placeName;
     private String placeDesc;
     private String placeURL;
+    private String placeSphere;
 
 
 
@@ -203,6 +204,7 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
         placeName = null;
         placeDesc = null;
         placeURL = null;
+        placeSphere = null;
         Map<String,Object> map = null;
         HttpHandler handler = new HttpHandler();
         url = "https://edit.meridianapps.com/api/locations/6555052652625920/placemarks?format=api";
@@ -599,7 +601,11 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
                 stringo = Jsoup.parse(placeDesc).text();
                 placeDesc = stringo;
                 placeURL = placemark.getImageURL();
+                placeSphere = "test";
                 placemark.removeParagraph();
+                if(stringa.equals("Bon Bons Coffee")){
+                    placeSphere = "https://goo.gl/maps/JWfNBqQthE52";
+                }
 
                 //web service call
                 Intent i = new Intent(MainActivity.this,Pop.class);
@@ -607,6 +613,7 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
                 b.putString("name",placeName);
                 b.putString("desc",placeDesc);
                 b.putString("url",placeURL);
+                b.putString("photoSphere", placeSphere);
                 i.putExtras(b);
                 startActivity(i);
 

@@ -53,4 +53,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:onClick="openPhoto"
+        android:text="360°"
+        tools:layout_editor_absoluteX="136dp"
+        tools:layout_editor_absoluteY="412dp" />
 </android.support.constraint.ConstraintLayout>
