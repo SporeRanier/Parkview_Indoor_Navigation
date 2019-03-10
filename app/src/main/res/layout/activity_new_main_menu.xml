@@ -16,7 +16,8 @@
         <include
             layout="@layout/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="visible" />
 
         <!-- The main content view where fragments are loaded -->
         <android.support.constraint.ConstraintLayout
@@ -28,15 +29,15 @@
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="453dp"
-                android:layout_height="667dp"
-                android:layout_marginTop="20dp"
+                android:layout_height="664dp"
+                android:layout_marginTop="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.494"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.495"
-                app:srcCompat="@drawable/parkvert" />
+                app:srcCompat="@drawable/parkvertdark" />
 
             <ImageButton
                 android:id="@+id/MainMenuDirectoryBtn"
@@ -109,6 +110,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toTopOf="@+id/imageView3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView4"
@@ -121,6 +123,7 @@
                 android:layout_width="147dp"
                 android:layout_height="167dp"
                 android:layout_marginTop="25dp"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toStartOf="@+id/imageView5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -139,13 +142,13 @@
 
             <Button
                 android:id="@+id/button3"
-                android:layout_width="195dp"
+                android:layout_width="247dp"
                 android:layout_height="71dp"
                 android:layout_marginStart="1dp"
+                android:layout_marginTop="100dp"
                 android:layout_marginEnd="165dp"
-                android:background="@color/colorButtonGreen"
+                android:background="@drawable/parkview_navigation_button"
                 android:onClick="onDirectionsButtonClick"
-                android:text="Navigate!"
                 android:textColor="@color/colorTextWhite"
                 android:textSize="36sp"
                 android:textStyle="bold|italic"
@@ -164,10 +167,22 @@
                 android:textColor="@color/colorTextWhite"
                 android:textSize="36sp"
                 android:textStyle="bold"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toTopOf="@+id/MainMenuUpcomingBtn"
                 app:layout_constraintEnd_toStartOf="@+id/imageView9"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView10" />
+
+            <ImageView
+                android:id="@+id/imageView11"
+                android:layout_width="292dp"
+                android:layout_height="185dp"
+                android:layout_marginTop="120dp"
+                app:layout_constraintBottom_toTopOf="@+id/MainMenuUpcomingBtn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/parkview_navigation_logo" />
 
         </android.support.constraint.ConstraintLayout>
     </LinearLayout>
