@@ -94,7 +94,7 @@ public class Pop extends Activity {
 
 
 
-        getWindow().setLayout((int)(width*.6),(int)(height*.6));
+        getWindow().setLayout((int)(width*.55),(int)(height*.65));
     }
     public static Drawable LoadImageFromWebOperations(String url) {
         try {
