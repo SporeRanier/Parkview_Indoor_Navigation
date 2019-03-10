@@ -4,17 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/ic_launcher_background">
+    android:background="@color/colorPrimary">
 
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="38dp"
-        android:layout_marginStart="240dp"
-        android:layout_marginTop="300dp"
+        android:layout_marginStart="230dp"
         android:layout_marginEnd="1dp"
-        android:layout_marginBottom="32dp"
-        android:background="@color/colorButtonGreen"
+        android:layout_marginBottom="50dp"
+        android:background="@color/colorPrimary"
         android:onClick="openPhoto"
         android:text="360°"
         android:textColor="@color/colorTextWhite"
@@ -54,8 +53,9 @@
         android:layout_marginBottom="14dp"
         android:text="TextView"
         android:textAlignment="center"
-        android:textColor="@color/mr_callout_black"
+        android:textColor="@color/colorTextWhite"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
