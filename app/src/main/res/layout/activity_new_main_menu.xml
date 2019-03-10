@@ -19,13 +19,24 @@
             android:layout_height="wrap_content" />
 
         <!-- The main content view where fragments are loaded -->
-        <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+        <android.support.constraint.ConstraintLayout
             android:id="@+id/clMainMenu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="?android:attr/colorBackground">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="453dp"
+                android:layout_height="667dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.494"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.495"
+                app:srcCompat="@drawable/parkvert" />
 
             <ImageButton
                 android:id="@+id/MainMenuDirectoryBtn"
@@ -34,6 +45,7 @@
                 android:background="@android:color/holo_blue_bright"
                 android:contentDescription="all doctors info"
                 android:onClick="onDirectoryButtonClick"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toTopOf="@+id/MainMenuUpcomingBtn"
                 app:layout_constraintEnd_toStartOf="@+id/MainMenuDirectionsBtn"
                 app:layout_constraintTop_toTopOf="parent"
@@ -46,6 +58,7 @@
                 android:background="@color/colorButtonGreen"
                 android:contentDescription="maping button"
                 android:onClick="onDirectionsButtonClick"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toTopOf="@+id/MainMenuWaitTimeBtn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/MainMenuDirectoryBtn"
@@ -58,11 +71,11 @@
                 android:layout_height="187dp"
                 android:background="@android:color/holo_orange_dark"
                 android:onClick="onEventsButtonClick"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toTopOf="@+id/MainMenuFindUsBtn"
                 app:layout_constraintEnd_toStartOf="@+id/MainMenuWaitTimeBtn"
                 app:layout_constraintTop_toBottomOf="@+id/MainMenuDirectoryBtn"
-                app:srcCompat="@drawable/upcoming_events"
-                />
+                app:srcCompat="@drawable/upcoming_events" />
 
             <ImageButton
                 android:id="@+id/MainMenuWaitTimeBtn"
@@ -70,6 +83,7 @@
                 android:layout_height="187dp"
                 android:background="@android:color/holo_purple"
                 android:onClick="onWaitTimeButtonClick"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toTopOf="@+id/MainMenuFindUsBtn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/MainMenuUpcomingBtn"
@@ -83,19 +97,77 @@
                 android:adjustViewBounds="false"
                 android:background="@android:color/holo_orange_light"
                 android:contentDescription="find us with google map"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/MainMenuWaitTimeBtn"
                 app:srcCompat="@drawable/parkview_log" />
 
+            <ImageView
+                android:id="@+id/imageView9"
+                android:layout_width="262dp"
+                android:layout_height="188dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                app:layout_constraintBottom_toTopOf="@+id/imageView3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView4"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.498"
+                app:srcCompat="@drawable/parkview_pool" />
+
+            <ImageView
+                android:id="@+id/imageView10"
+                android:layout_width="147dp"
+                android:layout_height="167dp"
+                android:layout_marginTop="25dp"
+                app:layout_constraintEnd_toStartOf="@+id/imageView5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_launcher" />
+
             <ImageButton
                 android:id="@+id/MainMenuContactUsBtn"
-                android:onClick="onContactUsClick"
                 android:layout_width="180dp"
                 android:layout_height="187dp"
                 android:background="@android:color/holo_red_light"
+                android:onClick="onContactUsClick"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toStartOf="@+id/MainMenuFindUsBtn"
                 app:layout_constraintTop_toBottomOf="@+id/MainMenuUpcomingBtn"
                 app:srcCompat="@drawable/contact_us" />
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="195dp"
+                android:layout_height="71dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginEnd="165dp"
+                android:background="@color/colorButtonGreen"
+                android:onClick="onDirectionsButtonClick"
+                android:text="Navigate!"
+                android:textColor="@color/colorTextWhite"
+                android:textSize="36sp"
+                android:textStyle="bold|italic"
+                app:layout_constraintBottom_toTopOf="@+id/MainMenuFindUsBtn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/MainMenuContactUsBtn"
+                app:layout_constraintTop_toBottomOf="@+id/MainMenuUpcomingBtn" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="187dp"
+                android:layout_height="97dp"
+                android:layout_marginStart="400dp"
+                android:layout_marginBottom="160dp"
+                android:text="Parkview Navigation"
+                android:textColor="@color/colorTextWhite"
+                android:textSize="36sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/MainMenuUpcomingBtn"
+                app:layout_constraintEnd_toStartOf="@+id/imageView9"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView10" />
 
         </android.support.constraint.ConstraintLayout>
     </LinearLayout>

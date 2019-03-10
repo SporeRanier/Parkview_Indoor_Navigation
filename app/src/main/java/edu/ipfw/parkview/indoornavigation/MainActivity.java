@@ -25,6 +25,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 import android.widget.EditText;
 import android.util.Log;
@@ -103,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
     private String placeDesc;
     private String placeURL;
     private String placeSphere;
+    private Button start;
 
 
 
@@ -176,13 +178,15 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
+
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
 
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_new_main_menu);
-
+        start = (Button) findViewById(R.id.button3);
         // Set a Toolbar to replace the ActionBar.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -591,6 +595,7 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
         mapFragment.setMarkerEventListener(new MapView.MarkerEventListener() {
             @Override
             public boolean onMarkerSelect(Marker marker) {
+
                 String stringo = marker.getCalloutTitle();
                 String stringy = marker.getCalloutDetails();
                 String stringu = marker.getDetails();
@@ -684,24 +689,30 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
             //if opening map fragment call buildMapFragment to reinitialize class' fragment to a MapFragment
             case R.id.drawer_map:
                 buildMapFragment();
+                start.setVisibility(View.INVISIBLE);
                 fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
                 needFrag = false;
                 break;
 
             case R.id.drawer_upcoming_events:
                 fragmentClass = UpcomingEventsFragment.class;
+                start.setVisibility(View.INVISIBLE);
 
                 break;
             case R.id.drawer_directory:
                 fragmentClass = DirectoryFragment.class;
+                start.setVisibility(View.INVISIBLE);
                 break;
             case R.id.drawer_contact_us:
                 fragmentClass = ContactUsActivity.class;
+                start.setVisibility(View.INVISIBLE);
                 break;
             case R.id.drawer_wait_time:
                 fragmentClass = WaitTimeFragment.class;
+                start.setVisibility(View.INVISIBLE);
                 break;
             default:
+                start.setVisibility(View.INVISIBLE);
                 fragmentClass = UpcomingEventsFragment.class;
                 break;
         }
@@ -726,8 +737,10 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
     }
 
     public void onDirectionsButtonClick(View v) {
+
         buildMapFragment();
         fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
+        start.setVisibility(View.INVISIBLE);
     }
 
     public void onEventsButtonClick(View v) {

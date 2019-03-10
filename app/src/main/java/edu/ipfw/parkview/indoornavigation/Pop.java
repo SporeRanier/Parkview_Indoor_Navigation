@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.net.URL;
@@ -23,6 +24,7 @@ public class Pop extends Activity {
     TextView textView;
     TextView textView2;
     ImageView imageView;
+    Button start;
 
 
     public String getRoomName() {
@@ -72,12 +74,17 @@ public class Pop extends Activity {
         setContentView(R.layout.popwindow);
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-
+        start = (Button) findViewById(R.id.button2);
+        start.setVisibility(View.INVISIBLE);
         textView =(TextView)findViewById(R.id.textView);
         textView.setText(roomName);
         textView2 =(TextView)findViewById(R.id.textView2);
         textView2.setText(roomDesc);
         Drawable pic = LoadImageFromWebOperations(roomURL);
+
+        if(roomName.equals("Bon Bons Coffee")){
+            start.setVisibility(View.VISIBLE);
+        }
         imageView =(ImageView)findViewById(R.id.imageView);
         imageView.setImageDrawable(pic);
 
@@ -87,7 +94,7 @@ public class Pop extends Activity {
 
 
 
-        getWindow().setLayout((int)(width*.8),(int)(height*.6));
+        getWindow().setLayout((int)(width*.6),(int)(height*.6));
     }
     public static Drawable LoadImageFromWebOperations(String url) {
         try {
@@ -103,7 +110,7 @@ public class Pop extends Activity {
         }
     }
     public void openPhoto(View view){
-        
+
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://goo.gl/maps/JWfNBqQthE52"));
         startActivity(browserIntent);
 
