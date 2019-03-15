@@ -468,7 +468,8 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
     }
     protected void onStart() {
         locationManager.startListeningForLocation();
-        CampaignsService.startMonitoring(getApplicationContext(), Application.APP_KEY);
+        CampaignsService.startMonitoring(MainActivity.this, Application.APP_KEY);
+        selectItem(0);
         super.onStart();
     }
 
