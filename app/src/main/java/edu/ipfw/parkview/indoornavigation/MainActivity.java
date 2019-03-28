@@ -175,6 +175,10 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
         this.placeURL = placeURL;
     }
 
+    private final String CHANNEL_ID = "personal_notifications";
+
+    private final int NOTIFICATION_ID = 001;
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -286,6 +290,7 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
         String message = "Welcome to Parkview Navigation! Where would you like to go?";
         //CampaignReceiver.CreateNotificationChannel(this);
         //Notification notification = new NotificationCompat.Builder(this, CampaignReceiver.notificationChannel);
+
     }
 
     private void resetCampaigns() {
@@ -468,14 +473,14 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
     }
     protected void onStart() {
         locationManager.startListeningForLocation();
-        CampaignsService.startMonitoring(MainActivity.this, Application.APP_KEY);
+        campaignServicer.startMonitoring(MainActivity.this, Application.APP_KEY);
         selectItem(0);
         super.onStart();
     }
 
     protected void onStop() {
         locationManager.stopListeningForLocation();
-        CampaignsService.stopMonitoring(getApplicationContext());
+        campaignServicer.stopMonitoring(getApplicationContext());
         super.onStop();
     }
 
@@ -669,6 +674,18 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
     @Override
     public void onEnableGPSRequest() {
 
+    }
+
+    public void displayNotification(View view)
+    {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID);
+        builder.setSmallIcon(R.drawable.ic_message_black_24dp);
+        builder.setContentTitle("Parkview Navigation");
+        builder.setContentText("You are now passing the ETCS lobby");
+        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
+        notificationManagerCompat.notify(NOTIFICATION_ID,builder.build());
     }
 
     /*============================ App Navigation Methods ================================================*/
