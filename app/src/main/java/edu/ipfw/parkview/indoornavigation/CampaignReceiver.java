@@ -14,7 +14,8 @@ import com.arubanetworks.meridian.campaigns.CampaignBroadcastReceiver;
 
 
 public class CampaignReceiver extends  CampaignBroadcastReceiver {
-    public final String CHANNEL_ID = "Meridian Notification";
+    private final int NOTIFICATION_ID = 001;
+    public static final String CHANNEL_ID = "Meridian Notification";
     int hasRun;
     protected void  onCreate(Bundle savedInstanceState) {
     hasRun = 0;
@@ -23,19 +24,23 @@ public class CampaignReceiver extends  CampaignBroadcastReceiver {
     @Override
     protected void onReceive(Context context, Intent intent, String title, String message) {
 
+        NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
         Intent notificationIntent = new Intent(context, MainActivity.class);
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID);
-        builder.setContentTitle(title);
-        builder.setContentText(message);
-        builder.setSmallIcon(R.drawable.ic_launcher);
-        builder.setDefaults(Notification.DEFAULT_ALL);
-        builder.setContentIntent(contentIntent);
-        builder.setAutoCancel(true);
-        NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        nm.notify("com.arubanetworks.meridiansamples.CampaignReceiver".hashCode(), builder.build());
+        Notification notification = new NotificationCompat.Builder(context, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_message_black_24dp)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .build();
+        nm.notify(1, notification);
+
+
+        //nm.notify("com.arubanetworks.meridiansamples.CampaignReceiver".hashCode(), builder.build());
         //MainActivity.setHeader("onRecieve has run");
     }
 

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Matrix;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
@@ -107,6 +108,9 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
     private Button start;
     private String header;
 
+    public static final String CHANNEL_1_ID = "channel1";
+    public static final String CHANNEL_2_ID = "channel2";
+    private final int NOTIFICATION_ID = 001;
 
 
 
@@ -177,9 +181,7 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
         this.placeURL = placeURL;
     }
 
-    private final String CHANNEL_ID = "personal_notifications";
 
-    private final int NOTIFICATION_ID = 001;
 
     @Override
 
@@ -190,8 +192,8 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
 
 
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_new_main_menu);
+        createNotificationChannels();
         start = (Button) findViewById(R.id.button3);
         // Set a Toolbar to replace the ActionBar.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -271,7 +273,22 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
 
         }
 
+        notificationManager = NotificationManagerCompat.from(this);
+
     }
+    public void sendOnChannel1(View v){
+        String title = "Parkview Navigation";
+        String message = "Welcome! Where would you like to go?";
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
+                .setSmallIcon(R.drawable.ic_message_black_24dp)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .build();
+        notificationManager.notify(1, notification);
+    }
+
     public String loadJSONFromAsset() {
         String json = null;
         try {
@@ -678,12 +695,27 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
 
     }
 
-    public void displayNotification(View view)
+    private void createNotificationChannels(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel1 = new NotificationChannel(CHANNEL_1_ID,"Startup Channel", NotificationManager.IMPORTANCE_HIGH);
+            channel1.setDescription("This is the startup channel");
+
+            NotificationChannel channel2 = new NotificationChannel(CHANNEL_1_ID,"Click Channel", NotificationManager.IMPORTANCE_LOW);
+            channel1.setDescription("This is the click channel");
+
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel1);
+            manager.createNotificationChannel(channel2);
+
+        }
+    }
+
+    public void displayNotification(View v)
     {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_2_ID);
         builder.setSmallIcon(R.drawable.ic_message_black_24dp);
         builder.setContentTitle("Parkview Navigation");
-        builder.setContentText("You are now passing the ETCS lobby");
+        builder.setContentText("Welcome to Parkview Navigation!");
         builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
@@ -761,6 +793,7 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
         buildMapFragment();
         fragmentManager.beginTransaction().replace(R.id.clMainMenu, fragment).commit();
         start.setVisibility(View.INVISIBLE);
+        sendOnChannel1(v);
     }
 
     public void onEventsButtonClick(View v) {
