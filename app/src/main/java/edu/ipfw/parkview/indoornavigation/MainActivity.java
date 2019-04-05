@@ -105,6 +105,8 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
     private String placeURL;
     private String placeSphere;
     private Button start;
+    private String header;
+
 
 
 
@@ -818,5 +820,13 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public String getHeader() {
+        return header;
+    }
+
+    public void setHeader(String header) {
+        this.header = header;
     }
 }
