@@ -33,6 +33,10 @@ import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -73,6 +77,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import java.sql.*;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 import static android.app.PendingIntent.getActivity;
 
 
@@ -112,8 +120,12 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
     public static final String CHANNEL_2_ID = "channel2";
     private final int NOTIFICATION_ID = 001;
 
-
-
+    //Declaring connection variables
+    private Connection con = null;
+    private Statement stmt = null;
+    private ResultSet rs = null;
+    String age,gender,db,ip;
+    int ageNum;
 
     private UserInfoDialog userInfo;
 
@@ -264,12 +276,30 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
 
             buildMapFragment();
         }
-
+        db = "mobile";
+        ip = "127.0.0.1:3306";
+        String sql = "Select * from test.mobile";
         //only query user info if fresh start
         if (Application.firstStart()) {
             Application.setFirstStart();
             userInfo = new UserInfoDialog();
             userInfo.show(fragmentManager, "User Data Dialog");
+            gender = userInfo.getGender();
+            //age = userInfo.getAge();
+            ageNum = 23;
+            con = ConnectionManager.getConnection();
+            /*
+            try {
+                stmt = con.createStatement();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                rs = stmt.executeQuery(sql);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            */
 
         }
 
@@ -493,7 +523,7 @@ public class MainActivity extends AppCompatActivity implements MeridianLocationM
     protected void onStart() {
         locationManager.startListeningForLocation();
         campaignServicer.startMonitoring(MainActivity.this, Application.APP_KEY);
-        selectItem(0);
+        //selectItem(0);
         super.onStart();
     }
 

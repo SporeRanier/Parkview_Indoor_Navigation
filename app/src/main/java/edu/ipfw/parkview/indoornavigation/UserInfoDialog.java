@@ -59,4 +59,19 @@ public class UserInfoDialog extends DialogFragment {
         return alertDialog;
     }
 
+    public UserData getTemp() {
+        return temp;
+    }
+
+    public void setTemp(UserData temp) {
+        this.temp = temp;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 }

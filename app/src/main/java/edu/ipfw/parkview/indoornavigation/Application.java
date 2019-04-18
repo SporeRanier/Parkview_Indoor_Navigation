@@ -1,5 +1,7 @@
 package edu.ipfw.parkview.indoornavigation;
 
+import android.content.Intent;
+
 import com.arubanetworks.meridian.Meridian;
 import com.arubanetworks.meridian.editor.EditorKey;
 
@@ -19,8 +21,10 @@ public class Application extends android.app.Application {
         Meridian.configure(this);
         Meridian.getShared().initGoalsForLocation(APP_KEY.toString());
         Meridian.getShared().setEditorToken(EDITOR_TOKEN);
-        //CampaignReceiver.CreateNotificationChannel(this);
+        CampaignReceiver.CreateNotificationChannel(this);
         super.onCreate();
+        Intent i = new Intent(Application.this,MainActivity.class);
+        CampaignReceiver.receiveTest(this, i, "test", "test");
     }
 
     public static void setFirstStart() {
